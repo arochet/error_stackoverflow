@@ -3,7 +3,7 @@ import 'package:base_de_projet/application/account/new_password_form_notifier.da
 import 'package:base_de_projet/presentation/components/some_widgets.dart';
 import 'package:base_de_projet/presentation/core/router.dart';
 import 'package:base_de_projet/presentation/core/theme.dart';
-import 'package:base_de_projet/presentation/home/home_page.dart';
+import 'package:base_de_projet/presentation/navigation/navigation_page.dart';
 import 'package:base_de_projet/providers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -33,7 +33,7 @@ class NewPasswordPage extends StatelessWidget {
                     //Authentification réussie !
                     Future.delayed(Duration.zero, () async {
                       Navigator.pushReplacementNamed(context, AppRouter.home,
-                          arguments: HomeArguments(1));
+                          arguments: NavigationArguments(1));
                     });
                   }));
         },

@@ -1,4 +1,4 @@
-package com.example.base_de_projet
+package com.blitz.chessapp
 
 import io.flutter.embedding.android.FlutterActivity
 

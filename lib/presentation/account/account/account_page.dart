@@ -1,5 +1,6 @@
 import 'package:base_de_projet/domain/auth/user_data.dart';
-import 'package:base_de_projet/presentation/account/widget/card_show_info.dart';
+import 'package:base_de_projet/presentation/account/account/widget/account_appbar.dart';
+import 'package:base_de_projet/presentation/account/account/widget/card_show_info.dart';
 import 'package:base_de_projet/presentation/core/router.dart';
 import 'package:base_de_projet/presentation/core/theme.dart';
 import 'package:base_de_projet/providers.dart';
@@ -24,6 +25,51 @@ class _AccountPageState extends State<AccountPage> {
 
   @override
   Widget build(BuildContext context) {
+    double heightAppBar = 200;
+    return Container(
+      color: Colors.white,
+      child: SafeArea(
+        child: Stack(
+          children: [
+            Container(
+              color: backgroundColor,
+              child: AccountInfo(heightAppBar: heightAppBar),
+            ),
+            Positioned(
+              top: -10,
+              child: Container(
+                width: MediaQuery.of(context).size.width,
+                height: heightAppBar,
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.only(
+                      bottomLeft: Radius.circular(15),
+                      bottomRight: Radius.circular(15)),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.grey.withOpacity(0.5),
+                      spreadRadius: 5,
+                      blurRadius: 17,
+                      offset: Offset(0, 3), // changes position of shadow
+                    ),
+                  ],
+                ),
+                child: AppBarAccount(),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class AccountInfo extends StatelessWidget {
+  final double heightAppBar;
+  const AccountInfo({Key? key, required this.heightAppBar}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
     return Consumer(builder: (context, watch, child) {
       AsyncValue<UserData?> user = watch(currentUserData);
       //Récupère les données utilisateurs (Informations personnelles)
@@ -45,7 +91,7 @@ class _AccountPageState extends State<AccountPage> {
           //Container Informations personnelles
           return ListView(
             children: <Widget>[
-              SizedBox(height: 40),
+              SizedBox(height: heightAppBar),
               Padding(
                 padding:
                     const EdgeInsets.symmetric(horizontal: 50, vertical: 8),

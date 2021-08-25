@@ -1,10 +1,9 @@
-import 'package:another_flushbar/flushbar.dart';
 import 'package:base_de_projet/application/account/modify_form_notifier.dart';
-import 'package:base_de_projet/presentation/account/reauthenticate_page.dart';
+import 'package:base_de_projet/presentation/account/reathenticate/reauthenticate_page.dart';
 import 'package:base_de_projet/presentation/auth/widget/flushbar_auth_failure.dart';
 import 'package:base_de_projet/presentation/core/router.dart';
 import 'package:base_de_projet/presentation/core/theme.dart';
-import 'package:base_de_projet/presentation/home/home_page.dart';
+import 'package:base_de_projet/presentation/navigation/navigation_page.dart';
 import 'package:base_de_projet/providers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -26,7 +25,7 @@ class ModifyAccountForm extends StatelessWidget {
                     //Authentification réussie !
                     Future.delayed(Duration.zero, () async {
                       Navigator.pushReplacementNamed(context, AppRouter.home,
-                          arguments: HomeArguments(1));
+                          arguments: NavigationArguments(1));
                     });
                   }));
         },
@@ -203,33 +202,6 @@ class _FormModifyAccountState extends State<FormModifyAccount> {
             controller: _controllerPhone,
           ),
           const SizedBox(height: 8),
-          //ADRESSE EMAIL
-          /* TextFormField(
-            decoration: const InputDecoration(
-              labelText: 'Adresse Mail',
-            ),
-            autocorrect: false,
-            onChanged: (value) {
-              context
-                  .read(modifyFormNotifierProvider.notifier)
-                  .emailChanged(value);
-            },
-            validator: (_) {
-              final registerData = context.read(modifyFormNotifierProvider);
-              if (registerData.showErrorMessages) {
-                return registerData.emailAddress.value.fold(
-                  (f) => f.maybeMap(
-                    invalidEmail: (_) => 'Adresse email invalide',
-                    orElse: () => null,
-                  ),
-                  (_) => null,
-                );
-              } else
-                return null;
-            },
-            controller: _controllerEmailAdress,
-          ),
-          const SizedBox(height: 14), */
           //BOUTON MODIFIER
           Align(
             child: ElevatedButton(
@@ -306,6 +278,16 @@ class _FormModifyAccountState extends State<FormModifyAccount> {
                   );
                 },
               ),
+              Align(
+                child: ElevatedButton(
+                  onPressed: () {
+                    context.read(authNotifierProvider.notifier).signOut();
+                  },
+                  style: buttonPrimaryNormal,
+                  child: const Text("Se déconnecter"),
+                ),
+              ),
+              const SizedBox(height: 12),
             ],
           )
         ]),

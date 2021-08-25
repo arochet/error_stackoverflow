@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+//BUTTON
 final buttonPrimaryBig = ElevatedButton.styleFrom(
     textStyle: TextStyle(fontSize: 22.0, fontWeight: FontWeight.bold),
     visualDensity: VisualDensity(
@@ -39,6 +40,17 @@ final buttonPrimaryNormal = ElevatedButton.styleFrom(
       borderRadius: BorderRadius.all(Radius.circular(30.0))),
 );
 
+final buttonTertiaryNormal = ElevatedButton.styleFrom(
+  textStyle: TextStyle(fontSize: 14.0, fontWeight: FontWeight.bold),
+  padding: EdgeInsets.symmetric(vertical: 10, horizontal: 30),
+  primary: Color.fromARGB(255, 204, 204, 204),
+  onPrimary: Color.fromARGB(255, 112, 112, 112),
+  onSurface: Colors.grey,
+  elevation: 0,
+  shape: RoundedRectangleBorder(
+      borderRadius: BorderRadius.all(Radius.circular(30.0))),
+);
+
 final buttonPrimaryHide = ElevatedButton.styleFrom(
   textStyle: TextStyle(fontSize: 14.0, fontWeight: FontWeight.bold),
   padding: EdgeInsets.symmetric(vertical: 10, horizontal: 5),
@@ -47,8 +59,27 @@ final buttonPrimaryHide = ElevatedButton.styleFrom(
   elevation: 0,
 );
 
+//COLOR
 Color backgroundColor = Color.fromRGBO(239, 239, 239, 1);
+Color greenColor = Color.fromRGBO(101, 124, 91, 1);
+Color greenClearColor = Color.fromRGBO(142, 164, 130, 1);
+Color blueColor = Color.fromRGBO(94, 129, 162, 1);
 
+//TEXT
+final txtStyleSubtitleGrey = TextStyle(
+    fontSize: 16.0,
+    fontWeight: FontWeight.bold,
+    color: Color.fromRGBO(164, 173, 186, 1));
+
+final txtStyleTitleWhite =
+    TextStyle(fontSize: 34.0, fontWeight: FontWeight.bold, color: Colors.white);
+
+final txtStyleSubtitleWhite =
+    TextStyle(fontSize: 14.0, fontWeight: FontWeight.bold, color: Colors.white);
+final txtStyleBodyWhite = TextStyle(
+    fontSize: 14.0, fontWeight: FontWeight.normal, color: Colors.white);
+
+//AUTH INIT
 class BackgroundRoundPaint extends CustomPainter {
   final double widthScreen;
   BackgroundRoundPaint(this.widthScreen);

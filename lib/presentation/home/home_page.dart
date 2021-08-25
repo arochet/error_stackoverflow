@@ -1,74 +1,46 @@
-import 'package:base_de_projet/presentation/account/account_page.dart';
-import 'package:base_de_projet/presentation/auth/widget/check_connexion_widget.dart';
-import 'package:base_de_projet/providers.dart';
+import 'package:base_de_projet/presentation/core/theme.dart';
+import 'package:base_de_projet/presentation/home/widget/home_appbar.dart';
+import 'package:base_de_projet/presentation/home/widget/home_body.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class HomeArguments {
-  final int indexNavigationBar;
-  HomeArguments(this.indexNavigationBar);
-}
-
-class HomePage extends StatefulWidget {
+class HomePage extends StatelessWidget {
   const HomePage({Key? key}) : super(key: key);
 
   @override
-  _HomePageState createState() => _HomePageState();
-}
-
-class _HomePageState extends State<HomePage> {
-  int _selectedIndex = 0;
-  static const List<Widget> _widgetOptions = <Widget>[
-    Center(
-      child: Text('Hola !'),
-    ),
-    Center(child: AccountPage()),
-  ];
-
-  @override
-  void initState() {
-    super.initState();
-    WidgetsBinding.instance!.addPostFrameCallback((_) {
-      final args = ModalRoute.of(context)!.settings.arguments as HomeArguments?;
-      final index = args != null ? args.indexNavigationBar : 0;
-      _onItemTapped(index);
-    });
-  }
-
-  void _onItemTapped(int index) {
-    setState(() {
-      _selectedIndex = index;
-    });
-  }
-
-  @override
   Widget build(BuildContext context) {
-    return CheckConnexionWidget(
-      child: Scaffold(
-        appBar: AppBar(
-          title: const Text("Home"),
-          leading: IconButton(
-            onPressed: () {
-              context.read(authNotifierProvider.notifier).signOut();
-            },
-            icon: const Icon(Icons.exit_to_app),
-          ),
-        ),
-        body: _widgetOptions.elementAt(_selectedIndex),
-        bottomNavigationBar: BottomNavigationBar(
-          items: const <BottomNavigationBarItem>[
-            BottomNavigationBarItem(
-              icon: Icon(Icons.home),
-              label: 'Home',
+    double heightAppBar = 100;
+    return Container(
+      color: Colors.white,
+      child: SafeArea(
+        child: Stack(
+          children: [
+            Container(
+              color: backgroundColor,
+              child: HomeBody(heightAppBar: heightAppBar),
             ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.account_circle),
-              label: 'Compte',
+            Positioned(
+              top: -10,
+              child: Container(
+                width: MediaQuery.of(context).size.width,
+                height: heightAppBar,
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.only(
+                      bottomLeft: Radius.circular(15),
+                      bottomRight: Radius.circular(15)),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.grey.withOpacity(0.5),
+                      spreadRadius: 5,
+                      blurRadius: 17,
+                      offset: Offset(0, 3), // changes position of shadow
+                    ),
+                  ],
+                ),
+                child: AppBarHome(),
+              ),
             ),
           ],
-          currentIndex: _selectedIndex,
-          selectedItemColor: Colors.amber[800],
-          onTap: _onItemTapped,
         ),
       ),
     );

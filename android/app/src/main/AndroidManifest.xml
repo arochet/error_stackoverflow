@@ -1,9 +1,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.base_de_projet">
+    package="com.blitz.chessapp">
     <uses-permission
      android:name="android.permission.INTERNET" />
    <application
-        android:label="Base de projet"
+        android:label="Chess App"
         android:icon="@mipmap/ic_launcher"
         android:name="androidx.multidex.MultiDexApplication">
         <activity

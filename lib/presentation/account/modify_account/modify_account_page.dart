@@ -1,4 +1,4 @@
-import 'package:base_de_projet/presentation/account/widget/modify_account_form.dart';
+import 'package:base_de_projet/presentation/account/modify_account/widget/modify_account_form.dart';
 import 'package:flutter/material.dart';
 
 class ModifyAccountPage extends StatefulWidget {

@@ -3,23 +3,21 @@
 <plist version="1.0">
 <dict>
 	<key>CLIENT_ID</key>
-	<string>732444715939-4hv80jhfuujf3hoirbhnqi3k8dk8r9ks.apps.googleusercontent.com</string>
+	<string>254803755155-0d22en8p016iadcaftgbj8cbhtur076t.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.732444715939-4hv80jhfuujf3hoirbhnqi3k8dk8r9ks</string>
-	<key>ANDROID_CLIENT_ID</key>
-	<string>732444715939-9n87hlklgtfpg695jpailei23igkulth.apps.googleusercontent.com</string>
+	<string>com.googleusercontent.apps.254803755155-0d22en8p016iadcaftgbj8cbhtur076t</string>
 	<key>API_KEY</key>
-	<string>AIzaSyDmHJSEju72BiERqQAxQMLqR5s0V6uTSAo</string>
+	<string>AIzaSyDr4juJ1ROqkZXLLrBv8ZpGl2YEwGoOkVc</string>
 	<key>GCM_SENDER_ID</key>
-	<string>732444715939</string>
+	<string>254803755155</string>
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>com.example.tutoDomainDrivenDesign</string>
+	<string>com.blitz.chessapp</string>
 	<key>PROJECT_ID</key>
-	<string>note-app-2d746</string>
+	<string>blitz-society</string>
 	<key>STORAGE_BUCKET</key>
-	<string>note-app-2d746.appspot.com</string>
+	<string>blitz-society.appspot.com</string>
 	<key>IS_ADS_ENABLED</key>
 	<false></false>
 	<key>IS_ANALYTICS_ENABLED</key>
@@ -31,6 +29,6 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:732444715939:ios:bb453ec2ddd25d39530816</string>
+	<string>1:254803755155:ios:0d58df0c06e70c8a3f8d66</string>
 </dict>
 </plist>

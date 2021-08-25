@@ -1,7 +1,7 @@
 import 'package:base_de_projet/presentation/components/some_widgets.dart';
 import 'package:base_de_projet/presentation/core/router.dart';
 import 'package:base_de_projet/presentation/core/theme.dart';
-import 'package:base_de_projet/presentation/home/home_page.dart';
+import 'package:base_de_projet/presentation/navigation/navigation_page.dart';
 import 'package:base_de_projet/providers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -21,7 +21,7 @@ class _AuthCheckEmailPageState extends State<AuthCheckEmailPage> {
       //Verififie que l'email est bien vérifié
       if (context.read(authNotifierProvider.notifier).authCheckEmail()) {
         Navigator.pushReplacementNamed(context, AppRouter.home,
-            arguments: HomeArguments(0));
+            arguments: NavigationArguments(0));
       }
     });
   }
