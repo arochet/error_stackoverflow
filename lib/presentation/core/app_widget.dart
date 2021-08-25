@@ -18,7 +18,7 @@ class AppWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     final ThemeData theme = Theme.of(context);
     return MaterialApp(
-      title: 'Base de Projet',
+      title: 'Blitz Society',
       debugShowCheckedModeBanner: false,
       theme: ThemeData.light().copyWith(
         scaffoldBackgroundColor: backgroundColor,

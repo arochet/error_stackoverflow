@@ -46,24 +46,42 @@ class _NavigationPageState extends State<NavigationPage> {
       child: Scaffold(
         body: _widgetOptions.elementAt(_selectedIndex),
         bottomNavigationBar: BottomNavigationBar(
-          items: const <BottomNavigationBarItem>[
+          items: <BottomNavigationBarItem>[
             BottomNavigationBarItem(
-              icon: Icon(Icons.home),
-              label: '__',
+              icon: buildIcon(Icons.home, false),
+              label: '_________',
+              activeIcon: buildIcon(Icons.home, true),
             ),
             BottomNavigationBarItem(
-              icon: Icon(Icons.account_circle),
-              label: '__',
-            ),
+              icon: buildIcon(Icons.account_circle, false),
+              label: '_________',
+              activeIcon: buildIcon(Icons.account_circle, true),
+            )
           ],
           currentIndex: _selectedIndex,
           selectedItemColor: greenColor,
           showUnselectedLabels: false,
-          selectedFontSize: 12.0,
-          unselectedFontSize: 12.0,
+          showSelectedLabels: false,
+          selectedFontSize: 3.0,
+          unselectedFontSize: 3.0,
+          iconSize: 35,
           onTap: _onItemTapped,
         ),
       ),
+    );
+  }
+
+  Widget buildIcon(IconData ic, bool selected) {
+    return Column(
+      children: [
+        Icon(ic),
+        if (selected)
+          Container(
+            width: 20,
+            height: 3,
+            color: greenColor,
+          ),
+      ],
     );
   }
 }
