@@ -20,7 +20,7 @@ class AuthInitPage extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  Text("Base de projet",
+                  Text("Blitz Society",
                       style: Theme.of(context).textTheme.headline2),
                   SizedBox(height: 20),
                   Image(
