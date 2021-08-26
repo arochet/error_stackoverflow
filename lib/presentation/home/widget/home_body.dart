@@ -1,3 +1,4 @@
+import 'package:base_de_projet/presentation/core/router.dart';
 import 'package:base_de_projet/presentation/core/theme.dart';
 import 'package:flutter/material.dart';
 
@@ -157,37 +158,40 @@ class PanelPlay extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return RoundedPanel(
-      child: Padding(
-        padding: const EdgeInsets.all(18.0),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  "Vous êtes au club ?",
-                  style: txtStyleSubtitleGrey,
-                ),
-                Text(
-                  "Jouer",
-                  style: txtStyleTitleWhite,
-                ),
-              ],
-            ),
-            Padding(
-              padding:
-                  const EdgeInsets.symmetric(horizontal: 12.0, vertical: 0),
-              child: CircleAvatar(
-                radius: 36,
-                foregroundImage: AssetImage("assets/images/chess1.jpeg"),
+    return GestureDetector(
+      onTap: () => Navigator.pushNamed(context, AppRouter.gameScanQrCode),
+      child: RoundedPanel(
+        child: Padding(
+          padding: const EdgeInsets.all(18.0),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    "Vous êtes au club ?",
+                    style: txtStyleSubtitleGrey,
+                  ),
+                  Text(
+                    "Jouer",
+                    style: txtStyleTitleWhite,
+                  ),
+                ],
               ),
-            ),
-          ],
+              Padding(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 12.0, vertical: 0),
+                child: CircleAvatar(
+                  radius: 36,
+                  foregroundImage: AssetImage("assets/images/chess1.jpeg"),
+                ),
+              ),
+            ],
+          ),
         ),
+        color: Color.fromRGBO(29, 51, 82, 1),
       ),
-      color: Color.fromRGBO(29, 51, 82, 1),
     );
   }
 }

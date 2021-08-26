@@ -8,6 +8,11 @@ import 'package:base_de_projet/presentation/auth/auth_init/auth_init.dart';
 import 'package:base_de_projet/presentation/auth/auth_register/auth_register.dart';
 import 'package:base_de_projet/presentation/auth/auth_reset_password.dart/auth_reset_password.dart';
 import 'package:base_de_projet/presentation/core/theme.dart';
+import 'package:base_de_projet/presentation/game/choose_team/chosse_team_page.dart';
+import 'package:base_de_projet/presentation/game/current_game/current_game_page.dart';
+import 'package:base_de_projet/presentation/game/scan_qr_code/scan_qr_code_page.dart';
+import 'package:base_de_projet/presentation/game/wait_player/wait_player_page.dart';
+import 'package:base_de_projet/presentation/game/winner/winner_page.dart';
 import 'package:base_de_projet/presentation/navigation/navigation_page.dart';
 import 'package:base_de_projet/presentation/core/router.dart';
 import 'package:flutter/material.dart';
@@ -60,6 +65,11 @@ class AppWidget extends StatelessWidget {
         AppRouter.reauthenticate: (context) => const ReauthenticatePage(),
         AppRouter.deleteAccount: (context) => const DeleteAccountPage(),
         AppRouter.newPassword: (context) => const NewPasswordPage(),
+        AppRouter.gameScanQrCode: (context) => const ScanQrCodePage(),
+        AppRouter.gameWaitPlayer: (context) => const WaitPlayerPage(),
+        AppRouter.gameChooseTeam: (context) => const ChooseTeamPage(),
+        AppRouter.gameCurrent: (context) => const CurrentGamePage(),
+        AppRouter.gameWinner: (context) => const WinnerPage(),
       },
     );
   }

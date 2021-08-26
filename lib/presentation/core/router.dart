@@ -11,4 +11,9 @@ class AppRouter {
   static get reauthenticate => "/reauthenticate";
   static get deleteAccount => "/delete-account";
   static get newPassword => "/new-password";
+  static get gameScanQrCode => "/game-scan-qrcode";
+  static get gameWaitPlayer => "/game-wait-player";
+  static get gameChooseTeam => "/game-choose-team";
+  static get gameCurrent => "/game-current";
+  static get gameWinner => "/game-winner";
 }

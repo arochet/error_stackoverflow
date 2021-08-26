@@ -11,7 +11,7 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return PageWithAppbar(
       heightAppBar: 100,
-      child: HomeBody(heightAppBar: 100),
+      body: HomeBody(heightAppBar: 100),
       appbar: AppBarHome(),
     );
   }

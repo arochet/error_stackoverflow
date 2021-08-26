@@ -2,26 +2,30 @@ import 'package:base_de_projet/presentation/core/theme.dart';
 import 'package:flutter/material.dart';
 
 class PageWithAppbar extends StatelessWidget {
-  final Widget child;
+  final Widget body;
   final Widget appbar;
   final double heightAppBar;
+  final Color? backgroundColorAppbar;
   const PageWithAppbar(
       {Key? key,
-      required this.child,
+      required this.body,
       required this.appbar,
-      required this.heightAppBar})
+      required this.heightAppBar,
+      this.backgroundColorAppbar})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Colors.white,
+      color:
+          backgroundColorAppbar == null ? Colors.white : backgroundColorAppbar,
       child: SafeArea(
+        bottom: false,
         child: Stack(
           children: [
             Container(
               color: backgroundColor,
-              child: child,
+              child: body,
             ),
             Positioned(
               top: -10,
@@ -29,7 +33,9 @@ class PageWithAppbar extends StatelessWidget {
                 width: MediaQuery.of(context).size.width,
                 height: heightAppBar,
                 decoration: BoxDecoration(
-                  color: Colors.white,
+                  color: backgroundColorAppbar == null
+                      ? Colors.white
+                      : backgroundColorAppbar,
                   borderRadius: BorderRadius.only(
                       bottomLeft: Radius.circular(15),
                       bottomRight: Radius.circular(15)),

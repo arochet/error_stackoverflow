@@ -44,7 +44,7 @@ final buttonTertiaryNormal = ElevatedButton.styleFrom(
   textStyle: TextStyle(fontSize: 14.0, fontWeight: FontWeight.bold),
   padding: EdgeInsets.symmetric(vertical: 10, horizontal: 30),
   primary: Color.fromARGB(255, 204, 204, 204),
-  onPrimary: Color.fromARGB(255, 112, 112, 112),
+  onPrimary: greyColor,
   onSurface: Colors.grey,
   elevation: 0,
   shape: RoundedRectangleBorder(
@@ -59,11 +59,21 @@ final buttonPrimaryHide = ElevatedButton.styleFrom(
   elevation: 0,
 );
 
+final buttonBack = ElevatedButton.styleFrom(
+  padding: EdgeInsets.symmetric(vertical: 10, horizontal: 5),
+  primary: Colors.transparent,
+  onPrimary: Colors.white,
+  elevation: 0,
+);
+
 //COLOR
 Color backgroundColor = Color.fromRGBO(239, 239, 239, 1);
 Color greenColor = Color.fromRGBO(101, 124, 91, 1);
 Color greenClearColor = Color.fromRGBO(142, 164, 130, 1);
 Color blueColor = Color.fromRGBO(94, 129, 162, 1);
+Color blueMarineColor = Color.fromRGBO(29, 51, 83, 1);
+Color greyColor = Color.fromARGB(255, 112, 112, 112);
+Color greyClearColor = Color.fromRGBO(176, 183, 192, 1);
 
 //TEXT
 final txtStyleSubtitleGrey = TextStyle(

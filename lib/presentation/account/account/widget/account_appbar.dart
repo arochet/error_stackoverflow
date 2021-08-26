@@ -2,15 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../account_page.dart';
 
-class AppBarAccount extends StatefulWidget {
+class AppBarAccount extends StatelessWidget {
   const AppBarAccount({Key? key}) : super(key: key);
 
-  @override
-  _AppBarAccountState createState() => _AppBarAccountState();
-}
-
-class _AppBarAccountState extends State<AppBarAccount> {
-  int _selectedIndex = 0;
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -39,14 +33,12 @@ class _AppBarAccountState extends State<AppBarAccount> {
                   GestureDetector(
                     child: _buildNavigationBarItem(
                         context, "Statistiques", index.state == 0),
-                    onTap: () => setState(
-                        () => context.read(seletedIndexProvider).state = 0),
+                    onTap: () => context.read(seletedIndexProvider).state = 0,
                   ),
                   GestureDetector(
                     child: _buildNavigationBarItem(
                         context, "Données", index.state == 1),
-                    onTap: () => setState(
-                        () => context.read(seletedIndexProvider).state = 1),
+                    onTap: () => context.read(seletedIndexProvider).state = 1,
                   ),
                 ],
               );
@@ -68,7 +60,7 @@ class _AppBarAccountState extends State<AppBarAccount> {
         Expanded(child: Container()),
         if (selected)
           Container(
-            width: 50,
+            width: 80,
             height: 3,
             color: Colors.black,
           ),

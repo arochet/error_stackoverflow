@@ -31,60 +31,24 @@ class _AccountPageState extends State<AccountPage> {
     return PageWithAppbar(
       appbar: AppBarAccount(),
       heightAppBar: heightAppBar,
-      child: Container(
+      body: Container(
         color: backgroundColor,
         child: Consumer(builder: (context, watch, child) {
           final index = watch(seletedIndexProvider);
           if (index.state == 0)
             return Container(
-              child: AccountStatistic(heightAppBar: heightAppBar),
+              child: AccountStatistic(
+                heightAppBar: heightAppBar,
+                key: UniqueKey(),
+              ),
             );
           else
-            return AccountInfo(heightAppBar: heightAppBar);
+            return Container(
+                child: AccountInfo(
+              heightAppBar: heightAppBar,
+              key: UniqueKey(),
+            ));
         }),
-      ),
-    );
-    return Container(
-      color: Colors.white,
-      child: SafeArea(
-        child: Stack(
-          children: [
-            Container(
-              color: backgroundColor,
-              child: Consumer(builder: (context, watch, child) {
-                final index = watch(seletedIndexProvider);
-                if (index.state == 0)
-                  return Container(
-                    child: AccountStatistic(heightAppBar: heightAppBar),
-                  );
-                else
-                  return AccountInfo(heightAppBar: heightAppBar);
-              }),
-            ),
-            Positioned(
-              top: -10,
-              child: Container(
-                width: MediaQuery.of(context).size.width,
-                height: heightAppBar,
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.only(
-                      bottomLeft: Radius.circular(15),
-                      bottomRight: Radius.circular(15)),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.grey.withOpacity(0.5),
-                      spreadRadius: 5,
-                      blurRadius: 17,
-                      offset: Offset(0, 3), // changes position of shadow
-                    ),
-                  ],
-                ),
-                child: AppBarAccount(),
-              ),
-            ),
-          ],
-        ),
       ),
     );
   }

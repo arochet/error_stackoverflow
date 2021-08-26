@@ -30,36 +30,36 @@ class AccountInfo extends StatelessWidget {
             email = data.email.getOrCrash();
           }
 
-          //Container Informations personnelles
-          return ListView(
-            children: <Widget>[
-              SizedBox(height: heightAppBar),
-              Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 50, vertical: 8),
-                child: Text("Informations Personnelles",
-                    style: Theme.of(context).textTheme.headline5),
+          return ListView(children: [
+            SizedBox(height: heightAppBar),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 8),
+              child: Text("Informations Personnelles",
+                  style: Theme.of(context).textTheme.headline5),
+            ),
+            CardShowInfo(title: "Prénom", body: firstName),
+            CardShowInfo(title: "Nom", body: name),
+            CardShowInfo(title: "Nom d'utilisateur", body: nameUser),
+            CardShowInfo(title: "Téléphone", body: phone),
+            CardShowInfo(title: "Adresse Email", body: email),
+            SizedBox(height: 10),
+            Align(
+              child: ElevatedButton(
+                onPressed: () {
+                  Navigator.pushNamed(context, AppRouter.modifyAccount);
+                },
+                style: buttonPrimaryNormal,
+                child: const Text('Modifier'),
               ),
-              CardShowInfo(title: "Prénom", body: firstName),
-              CardShowInfo(title: "Nom", body: name),
-              CardShowInfo(title: "Nom d'utilisateur", body: nameUser),
-              CardShowInfo(title: "Téléphone", body: phone),
-              CardShowInfo(title: "Adresse Email", body: email),
-              SizedBox(height: 10),
-              Align(
-                child: ElevatedButton(
-                  onPressed: () {
-                    Navigator.pushNamed(context, AppRouter.modifyAccount);
-                  },
-                  style: buttonPrimaryNormal,
-                  child: const Text('Modifier'),
-                ),
-              ),
-            ],
-          );
+            ),
+          ]);
         },
-        loading: () => const CircularProgressIndicator(),
-        error: (err, stack) => Text("Error : $err"),
+        loading: () => Center(
+          child: CircularProgressIndicator(),
+        ),
+        error: (e, s) => Center(
+          child: Text("Error $e"),
+        ),
       );
     });
   }
