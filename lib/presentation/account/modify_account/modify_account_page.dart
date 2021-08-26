@@ -1,6 +1,9 @@
 import 'package:base_de_projet/presentation/account/modify_account/widget/modify_account_form.dart';
 import 'package:flutter/material.dart';
 
+final GlobalKey<ScaffoldState> scaffoldKeyModifyAccount =
+    GlobalKey<ScaffoldState>();
+
 class ModifyAccountPage extends StatefulWidget {
   const ModifyAccountPage({Key? key}) : super(key: key);
 
@@ -12,6 +15,7 @@ class _ModifyAccountPageState extends State<ModifyAccountPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: scaffoldKeyModifyAccount,
       appBar: AppBar(
         toolbarHeight: 70,
         backgroundColor: Colors.white,

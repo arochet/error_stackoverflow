@@ -9,6 +9,8 @@ class NavigationArguments {
   NavigationArguments(this.indexNavigationBar);
 }
 
+final GlobalKey<ScaffoldState> scaffoldKeyMain = GlobalKey<ScaffoldState>();
+
 class NavigationPage extends StatefulWidget {
   const NavigationPage({Key? key}) : super(key: key);
 
@@ -18,6 +20,7 @@ class NavigationPage extends StatefulWidget {
 
 class _NavigationPageState extends State<NavigationPage> {
   int _selectedIndex = 0;
+
   static const List<Widget> _widgetOptions = <Widget>[
     HomePage(),
     Center(child: AccountPage()),
@@ -44,6 +47,7 @@ class _NavigationPageState extends State<NavigationPage> {
   Widget build(BuildContext context) {
     return CheckConnexionWidget(
       child: Scaffold(
+        key: scaffoldKeyMain,
         body: _widgetOptions.elementAt(_selectedIndex),
         bottomNavigationBar: BottomNavigationBar(
           items: <BottomNavigationBarItem>[

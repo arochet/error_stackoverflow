@@ -5,6 +5,7 @@ import 'package:base_de_projet/domain/auth/delete_failure.dart';
 import 'package:base_de_projet/domain/auth/new_password_failure.dart';
 import 'package:base_de_projet/domain/auth/reauthenticate_failure.dart';
 import 'package:base_de_projet/domain/auth/reset_password_failure.dart';
+import 'package:base_de_projet/domain/auth/server_failure.dart';
 import 'package:base_de_projet/domain/auth/user_data.dart';
 import 'package:base_de_projet/domain/auth/value_objects.dart';
 import 'package:base_de_projet/infrastructure/auth/user_data_dtos.dart';
@@ -13,6 +14,8 @@ import 'package:base_de_projet/infrastructure/core/firestore_helpers.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dartz/dartz.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:base_de_projet/domain/auth/user_auth.dart';
@@ -39,6 +42,8 @@ abstract class AuthRepository {
   Future<Either<ResetPasswordFailure, Unit>> resetPassword(
       {required EmailAddress emailAddress});
   Future<void> signOut();
+  Future<Either<ServerFailure, Unit>> uploadPhotoProfile(File file);
+  Future<Image?> getPhotoProfile();
 }
 
 @LazySingleton(as: AuthRepository)
@@ -46,11 +51,13 @@ class FirebaseAuthFacade implements AuthRepository {
   final FirebaseAuth _firebaseAuth;
   final GoogleSignIn _googleSignIn;
   final FirebaseFirestore _firestore;
+  final FirebaseStorage _storage;
 
   FirebaseAuthFacade(
     this._firebaseAuth,
     this._googleSignIn,
     this._firestore,
+    this._storage,
   );
 
   @override
@@ -346,5 +353,45 @@ class FirebaseAuthFacade implements AuthRepository {
       return false;
     }
     return false;
+  }
+
+  @override
+  Future<Either<ServerFailure, Unit>> uploadPhotoProfile(File file) async {
+    if (!(await checkInternetConnexion()))
+      return left(ServerFailure.noInternet());
+    try {
+      //Get user id
+      final userOption = getUser();
+      final id = userOption.fold(() => null, (u) => u.uid);
+      if (id == null) return left(ServerFailure.serverError());
+
+      await _storage.ref('user/$id/photo-profile.png').putFile(file);
+      return right(unit);
+    } on FirebaseException catch (e) {
+      print("FatalError => Upload la photo n'a pas fonctionné");
+      print(e.code);
+      switch (e.code) {
+        default:
+          return left(ServerFailure.serverError());
+      }
+    }
+  }
+
+  @override
+  Future<Image?> getPhotoProfile() async {
+    try {
+      final userOption = getUser();
+      final id = userOption.fold(() => null, (u) => u.uid);
+      if (id == null) return null;
+
+      String downloadURL =
+          await _storage.ref('user/$id/photo-profile.png').getDownloadURL();
+      if (downloadURL == "") return null;
+      return Image.network(downloadURL);
+    } on FirebaseException catch (e) {
+      print("FatalException $e");
+      print(e.code);
+      return null;
+    }
   }
 }

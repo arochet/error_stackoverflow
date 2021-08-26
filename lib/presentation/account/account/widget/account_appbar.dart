@@ -1,3 +1,5 @@
+import 'package:base_de_projet/presentation/components/avatar.dart';
+import 'package:base_de_projet/providers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../account_page.dart';
@@ -13,15 +15,16 @@ class AppBarAccount extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           SizedBox(height: 30),
-          Text(
-            "Romain",
-            style: Theme.of(context).textTheme.headline3,
-          ),
+          Consumer(builder: (context, watch, _) {
+            final userData = watch(currentUserData);
+            return Text(
+              userData.data!.value!.userName.getOrCrash(),
+              style: Theme.of(context).textTheme.headline3,
+            );
+          }),
           SizedBox(height: 5),
           //AVATAR
-          CircleAvatar(
-            minRadius: 40,
-          ),
+          AvatarWidget(size: 40),
           Expanded(child: Container()),
           Container(
             height: 30,

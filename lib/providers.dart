@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:base_de_projet/application/auth/auth_notifier.dart';
 import 'package:base_de_projet/application/account/modify_form_notifier.dart';
 import 'package:base_de_projet/application/account/new_password_form_notifier.dart';
@@ -7,6 +9,7 @@ import 'package:base_de_projet/application/auth/reset_password_notifier.dart';
 import 'package:base_de_projet/application/auth/sign_in_form_notifier.dart';
 import 'package:base_de_projet/domain/auth/user_auth.dart';
 import 'package:base_de_projet/domain/auth/user_data.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'domain/core/errors.dart';
@@ -68,4 +71,8 @@ final currentUserData = FutureProvider.autoDispose<UserData?>((ref) async {
     return null;
   else
     return user;
+});
+
+final currentPhotoProfile = FutureProvider.autoDispose<Image?>((ref) async {
+  return await getIt<AuthRepository>().getPhotoProfile();
 });

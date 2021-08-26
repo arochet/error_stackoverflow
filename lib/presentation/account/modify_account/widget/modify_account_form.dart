@@ -1,6 +1,9 @@
+import 'dart:io' as i;
 import 'package:base_de_projet/application/account/modify_form_notifier.dart';
+import 'package:base_de_projet/presentation/account/modify_account/widget/photo_profile.dart';
 import 'package:base_de_projet/presentation/account/reathenticate/reauthenticate_page.dart';
 import 'package:base_de_projet/presentation/auth/widget/flushbar_auth_failure.dart';
+import 'package:base_de_projet/presentation/components/avatar.dart';
 import 'package:base_de_projet/presentation/core/router.dart';
 import 'package:base_de_projet/presentation/core/theme.dart';
 import 'package:base_de_projet/presentation/navigation/navigation_page.dart';
@@ -50,7 +53,7 @@ class _FormModifyAccountState extends State<FormModifyAccount> {
   TextEditingController _controllerUserName =
       new TextEditingController(text: '');
   TextEditingController _controllerPhone = new TextEditingController(text: '');
-
+  i.File? avatarFile;
   @override
   void initState() {
     super.initState();
@@ -92,6 +95,10 @@ class _FormModifyAccountState extends State<FormModifyAccount> {
       return Form(
         autovalidateMode: AutovalidateMode.always,
         child: ListView(padding: const EdgeInsets.all(18), children: [
+          GestureDetector(
+            onTap: () => PhotoProfile.showChoiceDialog(context),
+            child: AvatarWidget(size: 35),
+          ),
           const SizedBox(height: 8),
           //PRENOM
           TextFormField(

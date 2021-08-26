@@ -1,4 +1,7 @@
+import 'package:base_de_projet/presentation/components/avatar.dart';
+import 'package:base_de_projet/providers.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class AppBarHome extends StatelessWidget {
   const AppBarHome({Key? key}) : super(key: key);
@@ -11,52 +14,53 @@ class AppBarHome extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           //AVATAR
-          CircleAvatar(
-            minRadius: 30,
-          ),
+          AvatarWidget(size: 30),
           SizedBox(
             width: 20,
           ),
-          Column(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: [
-              Container(
-                width: 150,
-                //Nom du joueur - Score
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.end,
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      "Romain",
-                      style: Theme.of(context).textTheme.headline4,
-                    ),
-                    Text(
-                      "1335",
-                      style: Theme.of(context).textTheme.headline5,
-                    ),
-                  ],
-                ),
-              ),
-              Container(
-                margin: EdgeInsets.symmetric(vertical: 10),
-                width: 150,
-                height: 8,
-                child: ClipRRect(
-                  borderRadius: BorderRadius.all(Radius.circular(4)),
-                  child: LinearProgressIndicator(
-                    value: 0.7,
-                    valueColor:
-                        AlwaysStoppedAnimation<Color>(Color(0xff00ff00)),
-                    backgroundColor: Colors.red,
+          Consumer(builder: (context, watch, child) {
+            final userData = watch(currentUserData);
+            return Column(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                Container(
+                  width: 150,
+                  //Nom du joueur - Score
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        userData.data!.value!.userName.getOrCrash(),
+                        style: Theme.of(context).textTheme.headline4,
+                      ),
+                      Text(
+                        "1335",
+                        style: Theme.of(context).textTheme.headline5,
+                      ),
+                    ],
                   ),
                 ),
-              ),
-              SizedBox(
-                height: 10,
-              )
-            ],
-          ),
+                Container(
+                  margin: EdgeInsets.symmetric(vertical: 10),
+                  width: 150,
+                  height: 8,
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.all(Radius.circular(4)),
+                    child: LinearProgressIndicator(
+                      value: 0.7,
+                      valueColor:
+                          AlwaysStoppedAnimation<Color>(Color(0xff00ff00)),
+                      backgroundColor: Colors.red,
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  height: 10,
+                )
+              ],
+            );
+          }),
         ],
       ),
     );
