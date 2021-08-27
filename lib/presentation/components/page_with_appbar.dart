@@ -6,13 +6,21 @@ class PageWithAppbar extends StatelessWidget {
   final Widget appbar;
   final double heightAppBar;
   final Color? backgroundColorAppbar;
-  const PageWithAppbar(
-      {Key? key,
-      required this.body,
-      required this.appbar,
-      required this.heightAppBar,
-      this.backgroundColorAppbar})
-      : super(key: key);
+  final Widget? bottombar;
+  final double? heightBottomBar;
+  final Color? backgroundColorBottombar;
+  final Widget? customBottomBar;
+  const PageWithAppbar({
+    Key? key,
+    required this.body,
+    required this.appbar,
+    required this.heightAppBar,
+    this.backgroundColorAppbar,
+    this.bottombar,
+    this.backgroundColorBottombar,
+    this.heightBottomBar,
+    this.customBottomBar,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -23,10 +31,20 @@ class PageWithAppbar extends StatelessWidget {
         bottom: false,
         child: Stack(
           children: [
+            //BODY
             Container(
               color: backgroundColor,
-              child: body,
+              child: Column(
+                children: [
+                  SizedBox(height: heightAppBar - 20),
+                  Expanded(child: body),
+                  SizedBox(
+                    height: heightBottomBar == null ? 0 : heightBottomBar! - 10,
+                  ),
+                ],
+              ),
             ),
+            //APPBAR
             Positioned(
               top: -10,
               child: Container(
@@ -51,6 +69,35 @@ class PageWithAppbar extends StatelessWidget {
                 child: appbar,
               ),
             ),
+            //BOTTOM BAR
+            if (bottombar != null) ...[
+              Positioned(
+                bottom: -10,
+                child: Container(
+                  width: MediaQuery.of(context).size.width,
+                  height: heightBottomBar == null ? 150 : heightBottomBar,
+                  decoration: BoxDecoration(
+                    color: backgroundColorBottombar == null
+                        ? Colors.white
+                        : backgroundColorBottombar,
+                    borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(15),
+                        topRight: Radius.circular(15)),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.grey.withOpacity(0.5),
+                        spreadRadius: 5,
+                        blurRadius: 17,
+                        offset: Offset(0, 3), // changes position of shadow
+                      ),
+                    ],
+                  ),
+                  child: bottombar,
+                ),
+              ),
+            ] else if (customBottomBar != null) ...[
+              customBottomBar!
+            ],
           ],
         ),
       ),

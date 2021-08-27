@@ -13,13 +13,8 @@ class ScanQrCodePage extends StatelessWidget {
       body: PageWithAppbar(
         appbar: ScanQrCodeAppbar(),
         backgroundColorAppbar: blueMarineColor,
-        heightAppBar: 200,
-        body: Column(
-          children: [
-            SizedBox(height: 180),
-            Expanded(child: ScanQrCodeBody()),
-          ],
-        ),
+        heightAppBar: 210,
+        body: ScanQrCodeBody(),
       ),
     );
   }

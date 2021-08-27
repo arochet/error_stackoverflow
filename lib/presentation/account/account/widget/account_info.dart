@@ -7,8 +7,7 @@ import 'package:base_de_projet/providers.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class AccountInfo extends StatelessWidget {
-  final double heightAppBar;
-  const AccountInfo({Key? key, required this.heightAppBar}) : super(key: key);
+  const AccountInfo({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -31,11 +30,11 @@ class AccountInfo extends StatelessWidget {
           }
 
           return ListView(children: [
-            SizedBox(height: heightAppBar),
+            SizedBox(height: 20),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 8),
               child: Text("Informations Personnelles",
-                  style: Theme.of(context).textTheme.headline5),
+                  style: Theme.of(context).textTheme.headline4),
             ),
             CardShowInfo(title: "Prénom", body: firstName),
             CardShowInfo(title: "Nom", body: name),

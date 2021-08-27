@@ -1,3 +1,4 @@
+import 'package:base_de_projet/domain/auth/user_data.dart';
 import 'package:base_de_projet/presentation/components/avatar.dart';
 import 'package:base_de_projet/providers.dart';
 import 'package:flutter/material.dart';
@@ -30,10 +31,7 @@ class AppBarHome extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.end,
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text(
-                        userData.data!.value!.userName.getOrCrash(),
-                        style: Theme.of(context).textTheme.headline4,
-                      ),
+                      getUserName(context, userData),
                       Text(
                         "1335",
                         style: Theme.of(context).textTheme.headline5,
@@ -64,5 +62,19 @@ class AppBarHome extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  Widget getUserName(BuildContext context, AsyncValue<UserData?> userData) {
+    if (userData.data != null && userData.data!.value != null) {
+      return Text(
+        userData.data!.value!.userName.getOrCrash(),
+        style: Theme.of(context).textTheme.headline4,
+      );
+    } else {
+      return Text(
+        "_",
+        style: Theme.of(context).textTheme.headline4,
+      );
+    }
   }
 }

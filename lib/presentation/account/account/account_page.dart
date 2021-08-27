@@ -44,10 +44,10 @@ class _AccountPageState extends State<AccountPage> {
             );
           else
             return Container(
-                child: AccountInfo(
-              heightAppBar: heightAppBar,
-              key: UniqueKey(),
-            ));
+              child: AccountInfo(
+                key: UniqueKey(),
+              ),
+            );
         }),
       ),
     );

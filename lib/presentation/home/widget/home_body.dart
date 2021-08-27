@@ -5,17 +5,14 @@ import 'package:flutter/material.dart';
 class HomeBody extends StatelessWidget {
   const HomeBody({
     Key? key,
-    required this.heightAppBar,
   }) : super(key: key);
-
-  final double heightAppBar;
 
   @override
   Widget build(BuildContext context) {
     double heightBetweenPanel = 10;
     return ListView(
       children: <Widget>[
-        SizedBox(height: heightAppBar),
+        SizedBox(height: heightBetweenPanel + 10),
         //PANEL JOUER
         PanelPlay(),
         SizedBox(height: heightBetweenPanel),

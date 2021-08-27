@@ -9,7 +9,7 @@ class AccountStatistic extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListView(
       children: [
-        SizedBox(height: heightAppBar + 20),
+        SizedBox(height: 40),
         Padding(
           padding: const EdgeInsets.all(8.0),
           child:

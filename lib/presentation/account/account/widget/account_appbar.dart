@@ -17,10 +17,14 @@ class AppBarAccount extends StatelessWidget {
           SizedBox(height: 30),
           Consumer(builder: (context, watch, _) {
             final userData = watch(currentUserData);
-            return Text(
-              userData.data!.value!.userName.getOrCrash(),
-              style: Theme.of(context).textTheme.headline3,
-            );
+            if (userData.data != null && userData.data!.value != null) {
+              return Text(
+                userData.data!.value!.userName.getOrCrash(),
+                style: Theme.of(context).textTheme.headline3,
+              );
+            } else {
+              return Text("");
+            }
           }),
           SizedBox(height: 5),
           //AVATAR
