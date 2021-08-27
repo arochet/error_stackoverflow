@@ -9,6 +9,7 @@ import 'package:base_de_projet/domain/auth/server_failure.dart';
 import 'package:base_de_projet/domain/auth/user_data.dart';
 import 'package:base_de_projet/domain/auth/value_objects.dart';
 import 'package:base_de_projet/infrastructure/auth/user_data_dtos.dart';
+import 'package:base_de_projet/infrastructure/core/check_internet_connexion.dart';
 import 'package:base_de_projet/infrastructure/core/crypt.dart';
 import 'package:base_de_projet/infrastructure/core/firestore_helpers.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -341,18 +342,6 @@ class FirebaseAuthFacade implements AuthRepository {
     }
 
     return crypt(password);
-  }
-
-  Future<bool> checkInternetConnexion() async {
-    try {
-      final result = await InternetAddress.lookup('google.com');
-      if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
-        return true;
-      }
-    } on SocketException catch (_) {
-      return false;
-    }
-    return false;
   }
 
   @override

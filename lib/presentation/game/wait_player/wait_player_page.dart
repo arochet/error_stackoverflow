@@ -52,15 +52,26 @@ class WaitPlayerBody extends StatelessWidget {
           SizedBox(height: 20),
           Consumer(builder: (context, watch, _) {
             final userData = watch(currentUserData);
-            return Column(
-              children: [
-                Text(
-                  userData.data!.value!.userName.getOrCrash(),
-                  style: Theme.of(context).textTheme.headline3,
-                ),
-                Text("1335", style: Theme.of(context).textTheme.headline5),
-              ],
-            );
+            if (userData.data != null && userData.data!.value != null) {
+              //Value okay
+              return Column(
+                children: [
+                  Text(
+                    userData.data!.value!.userName.getOrCrash(),
+                    style: Theme.of(context).textTheme.headline3,
+                  ),
+                  Text("1335", style: Theme.of(context).textTheme.headline5),
+                ],
+              );
+            } else {
+              //Value Null !
+              return Column(
+                children: [
+                  Text("", style: Theme.of(context).textTheme.headline3),
+                  Text("", style: Theme.of(context).textTheme.headline5),
+                ],
+              );
+            }
           }),
           SizedBox(height: 10),
           ElevatedButton(

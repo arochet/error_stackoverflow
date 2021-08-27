@@ -35,4 +35,7 @@ abstract class ValueFailure<T> with _$ValueFailure<T> {
     required T failedValue,
     required int maxLength,
   }) = ListTooLong<T>;
+  const factory ValueFailure.invalidTableId({
+    required T failedValue,
+  }) = InvalidTableId<T>;
 }

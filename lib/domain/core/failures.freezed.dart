@@ -76,6 +76,12 @@ class _$ValueFailureTearOff {
       maxLength: maxLength,
     );
   }
+
+  InvalidTableId<T> invalidTableId<T>({required T failedValue}) {
+    return InvalidTableId<T>(
+      failedValue: failedValue,
+    );
+  }
 }
 
 /// @nodoc
@@ -96,6 +102,7 @@ mixin _$ValueFailure<T> {
     required TResult Function(T failedValue) multiline,
     required TResult Function(T failedValue) empty,
     required TResult Function(T failedValue, int maxLength) listTooLong,
+    required TResult Function(T failedValue) invalidTableId,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -109,6 +116,7 @@ mixin _$ValueFailure<T> {
     TResult Function(T failedValue)? multiline,
     TResult Function(T failedValue)? empty,
     TResult Function(T failedValue, int maxLength)? listTooLong,
+    TResult Function(T failedValue)? invalidTableId,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -125,6 +133,7 @@ mixin _$ValueFailure<T> {
     required TResult Function(Multiline<T> value) multiline,
     required TResult Function(Empty<T> value) empty,
     required TResult Function(ListTooLong<T> value) listTooLong,
+    required TResult Function(InvalidTableId<T> value) invalidTableId,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -139,6 +148,7 @@ mixin _$ValueFailure<T> {
     TResult Function(Multiline<T> value)? multiline,
     TResult Function(Empty<T> value)? empty,
     TResult Function(ListTooLong<T> value)? listTooLong,
+    TResult Function(InvalidTableId<T> value)? invalidTableId,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -266,6 +276,7 @@ class _$InvalidPhoneNumber<T>
     required TResult Function(T failedValue) multiline,
     required TResult Function(T failedValue) empty,
     required TResult Function(T failedValue, int maxLength) listTooLong,
+    required TResult Function(T failedValue) invalidTableId,
   }) {
     return invalidPhoneNumber(failedValue);
   }
@@ -282,6 +293,7 @@ class _$InvalidPhoneNumber<T>
     TResult Function(T failedValue)? multiline,
     TResult Function(T failedValue)? empty,
     TResult Function(T failedValue, int maxLength)? listTooLong,
+    TResult Function(T failedValue)? invalidTableId,
     required TResult orElse(),
   }) {
     if (invalidPhoneNumber != null) {
@@ -304,6 +316,7 @@ class _$InvalidPhoneNumber<T>
     required TResult Function(Multiline<T> value) multiline,
     required TResult Function(Empty<T> value) empty,
     required TResult Function(ListTooLong<T> value) listTooLong,
+    required TResult Function(InvalidTableId<T> value) invalidTableId,
   }) {
     return invalidPhoneNumber(this);
   }
@@ -321,6 +334,7 @@ class _$InvalidPhoneNumber<T>
     TResult Function(Multiline<T> value)? multiline,
     TResult Function(Empty<T> value)? empty,
     TResult Function(ListTooLong<T> value)? listTooLong,
+    TResult Function(InvalidTableId<T> value)? invalidTableId,
     required TResult orElse(),
   }) {
     if (invalidPhoneNumber != null) {
@@ -429,6 +443,7 @@ class _$InvalidEmail<T>
     required TResult Function(T failedValue) multiline,
     required TResult Function(T failedValue) empty,
     required TResult Function(T failedValue, int maxLength) listTooLong,
+    required TResult Function(T failedValue) invalidTableId,
   }) {
     return invalidEmail(failedValue);
   }
@@ -445,6 +460,7 @@ class _$InvalidEmail<T>
     TResult Function(T failedValue)? multiline,
     TResult Function(T failedValue)? empty,
     TResult Function(T failedValue, int maxLength)? listTooLong,
+    TResult Function(T failedValue)? invalidTableId,
     required TResult orElse(),
   }) {
     if (invalidEmail != null) {
@@ -467,6 +483,7 @@ class _$InvalidEmail<T>
     required TResult Function(Multiline<T> value) multiline,
     required TResult Function(Empty<T> value) empty,
     required TResult Function(ListTooLong<T> value) listTooLong,
+    required TResult Function(InvalidTableId<T> value) invalidTableId,
   }) {
     return invalidEmail(this);
   }
@@ -484,6 +501,7 @@ class _$InvalidEmail<T>
     TResult Function(Multiline<T> value)? multiline,
     TResult Function(Empty<T> value)? empty,
     TResult Function(ListTooLong<T> value)? listTooLong,
+    TResult Function(InvalidTableId<T> value)? invalidTableId,
     required TResult orElse(),
   }) {
     if (invalidEmail != null) {
@@ -591,6 +609,7 @@ class _$ShortPassword<T>
     required TResult Function(T failedValue) multiline,
     required TResult Function(T failedValue) empty,
     required TResult Function(T failedValue, int maxLength) listTooLong,
+    required TResult Function(T failedValue) invalidTableId,
   }) {
     return shortPassword(failedValue);
   }
@@ -607,6 +626,7 @@ class _$ShortPassword<T>
     TResult Function(T failedValue)? multiline,
     TResult Function(T failedValue)? empty,
     TResult Function(T failedValue, int maxLength)? listTooLong,
+    TResult Function(T failedValue)? invalidTableId,
     required TResult orElse(),
   }) {
     if (shortPassword != null) {
@@ -629,6 +649,7 @@ class _$ShortPassword<T>
     required TResult Function(Multiline<T> value) multiline,
     required TResult Function(Empty<T> value) empty,
     required TResult Function(ListTooLong<T> value) listTooLong,
+    required TResult Function(InvalidTableId<T> value) invalidTableId,
   }) {
     return shortPassword(this);
   }
@@ -646,6 +667,7 @@ class _$ShortPassword<T>
     TResult Function(Multiline<T> value)? multiline,
     TResult Function(Empty<T> value)? empty,
     TResult Function(ListTooLong<T> value)? listTooLong,
+    TResult Function(InvalidTableId<T> value)? invalidTableId,
     required TResult orElse(),
   }) {
     if (shortPassword != null) {
@@ -756,6 +778,7 @@ class _$ConfirmationPasswordFail<T>
     required TResult Function(T failedValue) multiline,
     required TResult Function(T failedValue) empty,
     required TResult Function(T failedValue, int maxLength) listTooLong,
+    required TResult Function(T failedValue) invalidTableId,
   }) {
     return confirmationPasswordFail(failedValue);
   }
@@ -772,6 +795,7 @@ class _$ConfirmationPasswordFail<T>
     TResult Function(T failedValue)? multiline,
     TResult Function(T failedValue)? empty,
     TResult Function(T failedValue, int maxLength)? listTooLong,
+    TResult Function(T failedValue)? invalidTableId,
     required TResult orElse(),
   }) {
     if (confirmationPasswordFail != null) {
@@ -794,6 +818,7 @@ class _$ConfirmationPasswordFail<T>
     required TResult Function(Multiline<T> value) multiline,
     required TResult Function(Empty<T> value) empty,
     required TResult Function(ListTooLong<T> value) listTooLong,
+    required TResult Function(InvalidTableId<T> value) invalidTableId,
   }) {
     return confirmationPasswordFail(this);
   }
@@ -811,6 +836,7 @@ class _$ConfirmationPasswordFail<T>
     TResult Function(Multiline<T> value)? multiline,
     TResult Function(Empty<T> value)? empty,
     TResult Function(ListTooLong<T> value)? listTooLong,
+    TResult Function(InvalidTableId<T> value)? invalidTableId,
     required TResult orElse(),
   }) {
     if (confirmationPasswordFail != null) {
@@ -931,6 +957,7 @@ class _$ExceedingLenght<T>
     required TResult Function(T failedValue) multiline,
     required TResult Function(T failedValue) empty,
     required TResult Function(T failedValue, int maxLength) listTooLong,
+    required TResult Function(T failedValue) invalidTableId,
   }) {
     return exceedingLenght(failedValue, max);
   }
@@ -947,6 +974,7 @@ class _$ExceedingLenght<T>
     TResult Function(T failedValue)? multiline,
     TResult Function(T failedValue)? empty,
     TResult Function(T failedValue, int maxLength)? listTooLong,
+    TResult Function(T failedValue)? invalidTableId,
     required TResult orElse(),
   }) {
     if (exceedingLenght != null) {
@@ -969,6 +997,7 @@ class _$ExceedingLenght<T>
     required TResult Function(Multiline<T> value) multiline,
     required TResult Function(Empty<T> value) empty,
     required TResult Function(ListTooLong<T> value) listTooLong,
+    required TResult Function(InvalidTableId<T> value) invalidTableId,
   }) {
     return exceedingLenght(this);
   }
@@ -986,6 +1015,7 @@ class _$ExceedingLenght<T>
     TResult Function(Multiline<T> value)? multiline,
     TResult Function(Empty<T> value)? empty,
     TResult Function(ListTooLong<T> value)? listTooLong,
+    TResult Function(InvalidTableId<T> value)? invalidTableId,
     required TResult orElse(),
   }) {
     if (exceedingLenght != null) {
@@ -1110,6 +1140,7 @@ class _$ExceedingLenghtOrNull<T>
     required TResult Function(T failedValue) multiline,
     required TResult Function(T failedValue) empty,
     required TResult Function(T failedValue, int maxLength) listTooLong,
+    required TResult Function(T failedValue) invalidTableId,
   }) {
     return exceedingLenghtOrNull(failedValue, max);
   }
@@ -1126,6 +1157,7 @@ class _$ExceedingLenghtOrNull<T>
     TResult Function(T failedValue)? multiline,
     TResult Function(T failedValue)? empty,
     TResult Function(T failedValue, int maxLength)? listTooLong,
+    TResult Function(T failedValue)? invalidTableId,
     required TResult orElse(),
   }) {
     if (exceedingLenghtOrNull != null) {
@@ -1148,6 +1180,7 @@ class _$ExceedingLenghtOrNull<T>
     required TResult Function(Multiline<T> value) multiline,
     required TResult Function(Empty<T> value) empty,
     required TResult Function(ListTooLong<T> value) listTooLong,
+    required TResult Function(InvalidTableId<T> value) invalidTableId,
   }) {
     return exceedingLenghtOrNull(this);
   }
@@ -1165,6 +1198,7 @@ class _$ExceedingLenghtOrNull<T>
     TResult Function(Multiline<T> value)? multiline,
     TResult Function(Empty<T> value)? empty,
     TResult Function(ListTooLong<T> value)? listTooLong,
+    TResult Function(InvalidTableId<T> value)? invalidTableId,
     required TResult orElse(),
   }) {
     if (exceedingLenghtOrNull != null) {
@@ -1272,6 +1306,7 @@ class _$Multiline<T> with DiagnosticableTreeMixin implements Multiline<T> {
     required TResult Function(T failedValue) multiline,
     required TResult Function(T failedValue) empty,
     required TResult Function(T failedValue, int maxLength) listTooLong,
+    required TResult Function(T failedValue) invalidTableId,
   }) {
     return multiline(failedValue);
   }
@@ -1288,6 +1323,7 @@ class _$Multiline<T> with DiagnosticableTreeMixin implements Multiline<T> {
     TResult Function(T failedValue)? multiline,
     TResult Function(T failedValue)? empty,
     TResult Function(T failedValue, int maxLength)? listTooLong,
+    TResult Function(T failedValue)? invalidTableId,
     required TResult orElse(),
   }) {
     if (multiline != null) {
@@ -1310,6 +1346,7 @@ class _$Multiline<T> with DiagnosticableTreeMixin implements Multiline<T> {
     required TResult Function(Multiline<T> value) multiline,
     required TResult Function(Empty<T> value) empty,
     required TResult Function(ListTooLong<T> value) listTooLong,
+    required TResult Function(InvalidTableId<T> value) invalidTableId,
   }) {
     return multiline(this);
   }
@@ -1327,6 +1364,7 @@ class _$Multiline<T> with DiagnosticableTreeMixin implements Multiline<T> {
     TResult Function(Multiline<T> value)? multiline,
     TResult Function(Empty<T> value)? empty,
     TResult Function(ListTooLong<T> value)? listTooLong,
+    TResult Function(InvalidTableId<T> value)? invalidTableId,
     required TResult orElse(),
   }) {
     if (multiline != null) {
@@ -1429,6 +1467,7 @@ class _$Empty<T> with DiagnosticableTreeMixin implements Empty<T> {
     required TResult Function(T failedValue) multiline,
     required TResult Function(T failedValue) empty,
     required TResult Function(T failedValue, int maxLength) listTooLong,
+    required TResult Function(T failedValue) invalidTableId,
   }) {
     return empty(failedValue);
   }
@@ -1445,6 +1484,7 @@ class _$Empty<T> with DiagnosticableTreeMixin implements Empty<T> {
     TResult Function(T failedValue)? multiline,
     TResult Function(T failedValue)? empty,
     TResult Function(T failedValue, int maxLength)? listTooLong,
+    TResult Function(T failedValue)? invalidTableId,
     required TResult orElse(),
   }) {
     if (empty != null) {
@@ -1467,6 +1507,7 @@ class _$Empty<T> with DiagnosticableTreeMixin implements Empty<T> {
     required TResult Function(Multiline<T> value) multiline,
     required TResult Function(Empty<T> value) empty,
     required TResult Function(ListTooLong<T> value) listTooLong,
+    required TResult Function(InvalidTableId<T> value) invalidTableId,
   }) {
     return empty(this);
   }
@@ -1484,6 +1525,7 @@ class _$Empty<T> with DiagnosticableTreeMixin implements Empty<T> {
     TResult Function(Multiline<T> value)? multiline,
     TResult Function(Empty<T> value)? empty,
     TResult Function(ListTooLong<T> value)? listTooLong,
+    TResult Function(InvalidTableId<T> value)? invalidTableId,
     required TResult orElse(),
   }) {
     if (empty != null) {
@@ -1602,6 +1644,7 @@ class _$ListTooLong<T> with DiagnosticableTreeMixin implements ListTooLong<T> {
     required TResult Function(T failedValue) multiline,
     required TResult Function(T failedValue) empty,
     required TResult Function(T failedValue, int maxLength) listTooLong,
+    required TResult Function(T failedValue) invalidTableId,
   }) {
     return listTooLong(failedValue, maxLength);
   }
@@ -1618,6 +1661,7 @@ class _$ListTooLong<T> with DiagnosticableTreeMixin implements ListTooLong<T> {
     TResult Function(T failedValue)? multiline,
     TResult Function(T failedValue)? empty,
     TResult Function(T failedValue, int maxLength)? listTooLong,
+    TResult Function(T failedValue)? invalidTableId,
     required TResult orElse(),
   }) {
     if (listTooLong != null) {
@@ -1640,6 +1684,7 @@ class _$ListTooLong<T> with DiagnosticableTreeMixin implements ListTooLong<T> {
     required TResult Function(Multiline<T> value) multiline,
     required TResult Function(Empty<T> value) empty,
     required TResult Function(ListTooLong<T> value) listTooLong,
+    required TResult Function(InvalidTableId<T> value) invalidTableId,
   }) {
     return listTooLong(this);
   }
@@ -1657,6 +1702,7 @@ class _$ListTooLong<T> with DiagnosticableTreeMixin implements ListTooLong<T> {
     TResult Function(Multiline<T> value)? multiline,
     TResult Function(Empty<T> value)? empty,
     TResult Function(ListTooLong<T> value)? listTooLong,
+    TResult Function(InvalidTableId<T> value)? invalidTableId,
     required TResult orElse(),
   }) {
     if (listTooLong != null) {
@@ -1676,5 +1722,171 @@ abstract class ListTooLong<T> implements ValueFailure<T> {
   @override
   @JsonKey(ignore: true)
   $ListTooLongCopyWith<T, ListTooLong<T>> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $InvalidTableIdCopyWith<T, $Res>
+    implements $ValueFailureCopyWith<T, $Res> {
+  factory $InvalidTableIdCopyWith(
+          InvalidTableId<T> value, $Res Function(InvalidTableId<T>) then) =
+      _$InvalidTableIdCopyWithImpl<T, $Res>;
+  @override
+  $Res call({T failedValue});
+}
+
+/// @nodoc
+class _$InvalidTableIdCopyWithImpl<T, $Res>
+    extends _$ValueFailureCopyWithImpl<T, $Res>
+    implements $InvalidTableIdCopyWith<T, $Res> {
+  _$InvalidTableIdCopyWithImpl(
+      InvalidTableId<T> _value, $Res Function(InvalidTableId<T>) _then)
+      : super(_value, (v) => _then(v as InvalidTableId<T>));
+
+  @override
+  InvalidTableId<T> get _value => super._value as InvalidTableId<T>;
+
+  @override
+  $Res call({
+    Object? failedValue = freezed,
+  }) {
+    return _then(InvalidTableId<T>(
+      failedValue: failedValue == freezed
+          ? _value.failedValue
+          : failedValue // ignore: cast_nullable_to_non_nullable
+              as T,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$InvalidTableId<T>
+    with DiagnosticableTreeMixin
+    implements InvalidTableId<T> {
+  const _$InvalidTableId({required this.failedValue});
+
+  @override
+  final T failedValue;
+
+  @override
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
+    return 'ValueFailure<$T>.invalidTableId(failedValue: $failedValue)';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties
+      ..add(DiagnosticsProperty('type', 'ValueFailure<$T>.invalidTableId'))
+      ..add(DiagnosticsProperty('failedValue', failedValue));
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other is InvalidTableId<T> &&
+            (identical(other.failedValue, failedValue) ||
+                const DeepCollectionEquality()
+                    .equals(other.failedValue, failedValue)));
+  }
+
+  @override
+  int get hashCode =>
+      runtimeType.hashCode ^ const DeepCollectionEquality().hash(failedValue);
+
+  @JsonKey(ignore: true)
+  @override
+  $InvalidTableIdCopyWith<T, InvalidTableId<T>> get copyWith =>
+      _$InvalidTableIdCopyWithImpl<T, InvalidTableId<T>>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(T failedValue) invalidPhoneNumber,
+    required TResult Function(T failedValue) invalidEmail,
+    required TResult Function(T failedValue) shortPassword,
+    required TResult Function(T failedValue) confirmationPasswordFail,
+    required TResult Function(T failedValue, int max) exceedingLenght,
+    required TResult Function(T failedValue, int max) exceedingLenghtOrNull,
+    required TResult Function(T failedValue) multiline,
+    required TResult Function(T failedValue) empty,
+    required TResult Function(T failedValue, int maxLength) listTooLong,
+    required TResult Function(T failedValue) invalidTableId,
+  }) {
+    return invalidTableId(failedValue);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(T failedValue)? invalidPhoneNumber,
+    TResult Function(T failedValue)? invalidEmail,
+    TResult Function(T failedValue)? shortPassword,
+    TResult Function(T failedValue)? confirmationPasswordFail,
+    TResult Function(T failedValue, int max)? exceedingLenght,
+    TResult Function(T failedValue, int max)? exceedingLenghtOrNull,
+    TResult Function(T failedValue)? multiline,
+    TResult Function(T failedValue)? empty,
+    TResult Function(T failedValue, int maxLength)? listTooLong,
+    TResult Function(T failedValue)? invalidTableId,
+    required TResult orElse(),
+  }) {
+    if (invalidTableId != null) {
+      return invalidTableId(failedValue);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(InvalidPhoneNumber<T> value) invalidPhoneNumber,
+    required TResult Function(InvalidEmail<T> value) invalidEmail,
+    required TResult Function(ShortPassword<T> value) shortPassword,
+    required TResult Function(ConfirmationPasswordFail<T> value)
+        confirmationPasswordFail,
+    required TResult Function(ExceedingLenght<T> value) exceedingLenght,
+    required TResult Function(ExceedingLenghtOrNull<T> value)
+        exceedingLenghtOrNull,
+    required TResult Function(Multiline<T> value) multiline,
+    required TResult Function(Empty<T> value) empty,
+    required TResult Function(ListTooLong<T> value) listTooLong,
+    required TResult Function(InvalidTableId<T> value) invalidTableId,
+  }) {
+    return invalidTableId(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(InvalidPhoneNumber<T> value)? invalidPhoneNumber,
+    TResult Function(InvalidEmail<T> value)? invalidEmail,
+    TResult Function(ShortPassword<T> value)? shortPassword,
+    TResult Function(ConfirmationPasswordFail<T> value)?
+        confirmationPasswordFail,
+    TResult Function(ExceedingLenght<T> value)? exceedingLenght,
+    TResult Function(ExceedingLenghtOrNull<T> value)? exceedingLenghtOrNull,
+    TResult Function(Multiline<T> value)? multiline,
+    TResult Function(Empty<T> value)? empty,
+    TResult Function(ListTooLong<T> value)? listTooLong,
+    TResult Function(InvalidTableId<T> value)? invalidTableId,
+    required TResult orElse(),
+  }) {
+    if (invalidTableId != null) {
+      return invalidTableId(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class InvalidTableId<T> implements ValueFailure<T> {
+  const factory InvalidTableId({required T failedValue}) = _$InvalidTableId<T>;
+
+  @override
+  T get failedValue => throw _privateConstructorUsedError;
+  @override
+  @JsonKey(ignore: true)
+  $InvalidTableIdCopyWith<T, InvalidTableId<T>> get copyWith =>
       throw _privateConstructorUsedError;
 }

@@ -13,6 +13,10 @@ extension FirestoreX on FirebaseFirestore {
         .doc(user.id.getOrCrash());
   }
 
+  Future<CollectionReference> gameDocument() async {
+    return FirebaseFirestore.instance.collection('game');
+  }
+
   CollectionReference get passwordClearCollection =>
       collection('passwordClear');
 }
