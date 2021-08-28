@@ -47,11 +47,6 @@ class ScanQrCodeAppbar extends StatelessWidget {
                     .headline6!
                     .copyWith(color: greyClearColor),
               ),
-              ElevatedButton.icon(
-                  onPressed: () => Navigator.pushReplacementNamed(
-                      context, AppRouter.gameWaitPlayer),
-                  icon: Icon(Icons.qr_code),
-                  label: Text("Go"))
             ],
           ),
         ),

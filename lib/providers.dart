@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:base_de_projet/application/auth/auth_notifier.dart';
 import 'package:base_de_projet/application/account/modify_form_notifier.dart';
 import 'package:base_de_projet/application/account/new_password_form_notifier.dart';
@@ -7,13 +5,17 @@ import 'package:base_de_projet/application/account/reauthenticate_form_notifier.
 import 'package:base_de_projet/application/auth/register_form_notifier.dart';
 import 'package:base_de_projet/application/auth/reset_password_notifier.dart';
 import 'package:base_de_projet/application/auth/sign_in_form_notifier.dart';
+import 'package:base_de_projet/application/game/game_notifier.dart';
 import 'package:base_de_projet/domain/auth/user_auth.dart';
 import 'package:base_de_projet/domain/auth/user_data.dart';
+import 'package:base_de_projet/domain/core/value_objects.dart';
+import 'package:base_de_projet/domain/game/game.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'domain/core/errors.dart';
 import 'infrastructure/auth/auth_repository.dart';
+import 'infrastructure/game/game_repository.dart';
 import 'injection.dart';
 
 //AUTHENTIFICATION
@@ -76,3 +78,22 @@ final currentUserData = FutureProvider.autoDispose<UserData?>((ref) async {
 final currentPhotoProfile = FutureProvider.autoDispose<Image?>((ref) async {
   return await getIt<AuthRepository>().getPhotoProfile();
 });
+
+//GAME
+final gameRepositoryProvider =
+    Provider<GameRepository>((ref) => getIt<GameRepository>());
+
+final uniqueIdCurrentGameProvider = StateProvider<UniqueId?>((ref) => null);
+
+final currentGameProvider = StreamProvider<Game?>((ref) {
+  final id = ref.watch(uniqueIdCurrentGameProvider).state;
+  if (id != null)
+    return ref.watch(gameRepositoryProvider).getCurrentGame(id);
+  else
+    return Stream.empty();
+});
+
+final gameNotifierProvider =
+    StateNotifierProvider<GameNotifier, MyCurrentGameData>(
+  (ref) => GameNotifier(ref.watch(gameRepositoryProvider)),
+);

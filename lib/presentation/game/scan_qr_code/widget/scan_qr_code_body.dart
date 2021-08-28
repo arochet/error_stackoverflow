@@ -1,8 +1,12 @@
 import 'dart:io';
 
+import 'package:another_flushbar/flushbar.dart';
+import 'package:base_de_projet/application/game/game_notifier.dart';
 import 'package:base_de_projet/presentation/core/router.dart';
+import 'package:base_de_projet/providers.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
 
 class ScanQrCodeBody extends StatelessWidget {
@@ -12,7 +16,39 @@ class ScanQrCodeBody extends StatelessWidget {
   Widget build(BuildContext context) {
     return Stack(
       children: [
-        QRCode(),
+        ProviderListener(
+          provider: gameNotifierProvider,
+          onChange: (context, MyCurrentGameData myCurrentGameData) {
+            myCurrentGameData.idGameFailureOrSuccessOption.fold(
+                () {},
+                (either) => either.fold((failure) {
+                      //Message d'erreur
+                      Flushbar(
+                        duration: const Duration(seconds: 3),
+                        icon: const Icon(Icons.warning),
+                        messageColor: Colors.red,
+                        message: failure.map(
+                          noInternet: (_) => 'Pas d\'internet',
+                          serverError: (_) => 'Server Error',
+                          userAlreadyCreatedGame: (_) =>
+                              'Vous avez déjà créé une partie',
+                        ),
+                      ).show(context);
+                    }, (_id) {
+                      Future.delayed(Duration.zero, () async {
+                        print("mon id de game $_id");
+                        context.read(uniqueIdCurrentGameProvider).state = _id;
+                        Navigator.pushNamed(context, AppRouter.gameWaitPlayer);
+                      });
+                    }));
+          },
+          child: Container(), //QRCode(),
+        ),
+        ElevatedButton.icon(
+            onPressed: () =>
+                context.read(gameNotifierProvider.notifier).newGame("Table-10"),
+            icon: Icon(Icons.qr_code),
+            label: Text("Go")),
         Center(
             heightFactor: 7,
             child: Text(
@@ -49,10 +85,6 @@ class _QRCodeState extends State<QRCode> {
 
   @override
   Widget build(BuildContext context) {
-    return _buildQrView(context);
-  }
-
-  Widget _buildQrView(BuildContext context) {
     // For this example we check how width or tall the device is and change the scanArea and overlay accordingly.
     var scanArea = (MediaQuery.of(context).size.width < 400 ||
             MediaQuery.of(context).size.height < 400)
@@ -81,8 +113,9 @@ class _QRCodeState extends State<QRCode> {
       setState(() {
         result = scanData;
         print("QRcode result");
-        print(result?.code);
-        _startNewGame(result?.code);
+        final code = result?.code;
+        if (code != null)
+          context.read(gameNotifierProvider.notifier).newGame(code);
       });
     });
   }
@@ -94,10 +127,6 @@ class _QRCodeState extends State<QRCode> {
         SnackBar(content: Text('no Permission')),
       );
     }
-  }
-
-  void _startNewGame(String? code) {
-    Navigator.pushNamed(context, AppRouter.gameWaitPlayer);
   }
 
   @override

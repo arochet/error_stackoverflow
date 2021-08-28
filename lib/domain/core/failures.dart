@@ -35,7 +35,10 @@ abstract class ValueFailure<T> with _$ValueFailure<T> {
     required T failedValue,
     required int maxLength,
   }) = ListTooLong<T>;
-  const factory ValueFailure.invalidTableId({
+  const factory ValueFailure.invalidCodeId({
     required T failedValue,
-  }) = InvalidTableId<T>;
+  }) = InvalidCodeId<T>;
+  const factory ValueFailure.invalidEnum({
+    required T failedValue,
+  }) = InvalidEnum<T>;
 }

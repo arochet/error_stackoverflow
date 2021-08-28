@@ -1,5 +1,3 @@
-import 'package:base_de_projet/domain/auth/user_data.dart';
-import 'package:base_de_projet/domain/auth/value_objects.dart';
 import 'package:base_de_projet/domain/core/value_objects.dart';
 import 'package:base_de_projet/domain/game/value_objects.dart';
 import 'package:base_de_projet/domain/game/game.dart';
@@ -35,14 +33,15 @@ abstract class GameDTO implements _$GameDTO {
   }
 
   Game toDomain() {
+    print("c'estla mer noire");
+
     return Game(
       id: UniqueId.fromUniqueString(id!),
-      blackPlayer: BlackPlayer(BlackPlayerState.fromString(blackPlayer)),
-      idTable: game.idTable.getOrCrash(),
-      idPlayerOne: game.idPlayerOne,
-      idPlayerTwo: game.idPlayerTwo,
-      timestampCreation: FieldValue.serverTimestamp(),
-      winner: game.winner.getOrCrash().toShortString(),
+      blackPlayer: BlackPlayer.fromString(blackPlayer),
+      idTable: TableId(idTable),
+      idPlayerOne: idPlayerOne,
+      idPlayerTwo: idPlayerTwo,
+      winner: Winner.fromString(winner),
     );
   }
 

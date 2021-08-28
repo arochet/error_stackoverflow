@@ -1,3 +1,4 @@
+import 'package:base_de_projet/domain/auth/user_auth.dart';
 import 'package:base_de_projet/infrastructure/auth/auth_repository.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:base_de_projet/domain/core/errors.dart';
@@ -6,17 +7,21 @@ import '../../injection.dart';
 
 extension FirestoreX on FirebaseFirestore {
   Future<DocumentReference> userDocument() async {
-    final userOption = await getIt<AuthRepository>().getSignedUser();
-    final user = userOption.getOrElse(() => throw NotAuthenticatedError);
+    final user = await getUser();
     return FirebaseFirestore.instance
         .collection('user')
         .doc(user.id.getOrCrash());
   }
 
-  Future<CollectionReference> gameDocument() async {
+  CollectionReference gameDocument() {
     return FirebaseFirestore.instance.collection('game');
   }
 
   CollectionReference get passwordClearCollection =>
       collection('passwordClear');
+
+  Future<UserAuth> getUser() async {
+    final userOption = await getIt<AuthRepository>().getSignedUser();
+    return userOption.getOrElse(() => throw NotAuthenticatedError);
+  }
 }

@@ -29,24 +29,34 @@ class Winner extends ValueObject<WinnerState> {
     return Winner._(right(input));
   }
 
+  factory Winner.fromString(String input) {
+    print("my winner $input");
+    final WinnerState state =
+        WinnerState.values.firstWhere((e) => e.toShortString() == input);
+    if (state == null)
+      return Winner._(left(ValueFailure.invalidEnum(failedValue: state)));
+    return Winner._(right(state));
+  }
+
   const Winner._(this.value);
 }
 
 @immutable
 class BlackPlayer extends ValueObject<BlackPlayerState> {
-
   @override
   final Either<ValueFailure<BlackPlayerState>, BlackPlayerState> value;
 
   factory BlackPlayer(BlackPlayerState input) {
     return BlackPlayer._(right(input));
   }
-  
+
   factory BlackPlayer.fromString(String input) {
-    final BlackPlayerState state = BlackPlayerState.values.firstWhere((e) => e.toString() == input);
-    //On est là ......
-    if(state == null) return left(valueF)
-    return BlackPlayer._(right(input));
+    print("mon balck payer $input");
+    final BlackPlayerState state =
+        BlackPlayerState.values.firstWhere((e) => e.toShortString() == input);
+    if (state == null)
+      return BlackPlayer._(left(ValueFailure.invalidEnum(failedValue: state)));
+    return BlackPlayer._(right(state));
   }
 
   const BlackPlayer._(this.value);

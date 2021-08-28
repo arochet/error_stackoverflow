@@ -6,7 +6,7 @@ Either<ValueFailure<String>, String> validateTableId(String input) {
     return right(input);
   } else {
     return left(
-      ValueFailure.invalidTableId(failedValue: input),
+      ValueFailure.invalidCodeId(failedValue: input),
     );
   }
 }
