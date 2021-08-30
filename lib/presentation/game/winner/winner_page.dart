@@ -1,6 +1,11 @@
+import 'package:base_de_projet/application/game/game_notifier.dart';
+import 'package:base_de_projet/domain/game/value_objects.dart';
+import 'package:base_de_projet/presentation/components/avatar.dart';
 import 'package:base_de_projet/presentation/components/page_with_appbar.dart';
 import 'package:base_de_projet/presentation/core/router.dart';
 import 'package:base_de_projet/presentation/core/theme.dart';
+import 'package:base_de_projet/presentation/game/widget/flushbar_game_failure.dart';
+import 'package:base_de_projet/providers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -54,7 +59,33 @@ class WinnerBottomBar extends ConsumerWidget {
           child: Column(
             children: [
               Expanded(child: Container()),
-              Text("Match Nul !", style: Theme.of(context).textTheme.headline3),
+              Consumer(builder: (context, watch, _) {
+                final streamG = watch(currentGameProvider);
+                final game = streamG.data?.value;
+                final winner = game?.winner.getOrCrash();
+                switch (winner) {
+                  case WinnerState.inProgress:
+                    return Text("error",
+                        style: Theme.of(context).textTheme.headline3);
+                  case WinnerState.playerOneWin:
+                    final streamUserData = watch(userDataPlayer(true));
+                    final name =
+                        streamUserData.data?.value?.userName.getOrCrash();
+                    return Text(name != null ? name : '',
+                        style: Theme.of(context).textTheme.headline3);
+                  case WinnerState.playerTwoWin:
+                    final streamUserData = watch(userDataPlayer(false));
+                    final name =
+                        streamUserData.data?.value?.userName.getOrCrash();
+                    return Text(name != null ? name : '',
+                        style: Theme.of(context).textTheme.headline3);
+                  case WinnerState.draw:
+                    return Text("Match Nul",
+                        style: Theme.of(context).textTheme.headline3);
+                  default:
+                    return CircularProgressIndicator();
+                }
+              }),
               SizedBox(height: 15),
               ElevatedButton(
                 onPressed: () {
@@ -85,66 +116,122 @@ class WinnerAppbar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        SizedBox(height: 40),
-        Text("Qui à gagné ?", style: Theme.of(context).textTheme.headline3),
-        SizedBox(height: 20),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            PlayerWidget(name: "Romain", score: 1334, isBlack: true),
-            PlayerWidget(name: "Sacha", score: 233, isBlack: false),
-          ],
-        ),
-        Expanded(
-          child: Center(
-            child: ElevatedButton(
-              onPressed: () {
-                context.read(isVisible).state = !context.read(isVisible).state;
+    return ProviderListener(
+      provider: gameNotifierProvider,
+      onChange: (BuildContext context, MyCurrentGameData myCurrentGameData) {
+        myCurrentGameData.setWinnerOrFailure.fold(
+            () {},
+            (either) => either.fold((failure) {
+                  //Message d'erreur
+                  FlushbarGameFailure.show(context, failure);
+                }, (_id) {
+                  Future.delayed(Duration.zero, () async {
+                    context.read(isVisible).state = true;
+                  });
+                }));
+      },
+      child: Column(
+        children: [
+          SizedBox(height: 40),
+          Text("Qui à gagné ?", style: Theme.of(context).textTheme.headline3),
+          SizedBox(height: 20),
+          Consumer(builder: (context, watch, _) {
+            final game = watch(currentGameProvider);
+            return game.when(
+              data: (game) {
+                if (game == null) return Center(child: Text("Game Not Found"));
+                return Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    GestureDetector(
+                        onTap: () => context
+                            .read(gameNotifierProvider.notifier)
+                            .setWin(WinnerState.playerOneWin),
+                        child: PlayerWidget(
+                            isFirstPlayer: true,
+                            isBlack: game.blackPlayer.getOrCrash() ==
+                                BlackPlayerState.playerOne)),
+                    GestureDetector(
+                        onTap: () => context
+                            .read(gameNotifierProvider.notifier)
+                            .setWin(WinnerState.playerTwoWin),
+                        child: PlayerWidget(
+                            isFirstPlayer: false,
+                            isBlack: game.blackPlayer.getOrCrash() ==
+                                BlackPlayerState.playerTwo)),
+                  ],
+                );
               },
-              child: Text("Match Nul"),
-              style: buttonPrimaryNormal,
+              loading: () => Center(child: CircularProgressIndicator()),
+              error: (Object error, StackTrace? stackTrace) =>
+                  Center(child: Text("Error $error")),
+            );
+          }),
+          Expanded(
+            child: Center(
+              child: ElevatedButton(
+                onPressed: () {
+                  context
+                      .read(gameNotifierProvider.notifier)
+                      .setWin(WinnerState.draw);
+                },
+                child: Text("Match Nul"),
+                style: buttonPrimaryNormal,
+              ),
             ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }
 
-class PlayerWidget extends StatelessWidget {
-  final String name;
-  final double score;
+class PlayerWidget extends ConsumerWidget {
+  final bool isFirstPlayer;
   final bool isBlack;
   const PlayerWidget({
-    required this.name,
-    required this.score,
+    required this.isFirstPlayer,
     required this.isBlack,
     Key? key,
   }) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
-    return Column(children: [
-      Stack(
-        children: [
-          CircleAvatar(radius: 40),
-          Positioned(
-            top: 3,
-            right: 3,
-            child: CircleAvatar(
-              radius: 12,
-              backgroundColor: isBlack ? Colors.black : Colors.grey,
+  Widget build(BuildContext context, ScopedReader watch) {
+    final streamUserData = watch(userDataPlayer(isFirstPlayer));
+    return streamUserData.when(
+      data: (userData) {
+        if (userData == null)
+          return Center(
+            child: Text("Error : Player Not Found"),
+          );
+        else {
+          return Column(children: [
+            Stack(
+              children: [
+                AvatarPlayerWidget(
+                  size: 40,
+                  idPlayer: userData.id,
+                ),
+                Positioned(
+                  top: 3,
+                  right: 3,
+                  child: CircleAvatar(
+                    radius: 12,
+                    backgroundColor: isBlack ? Colors.black : Colors.grey,
+                  ),
+                ),
+              ],
             ),
-          ),
-        ],
-      ),
-      SizedBox(height: 20),
-      Text(name, style: Theme.of(context).textTheme.headline3),
-      Text(score.toInt().toString(),
-          style: Theme.of(context).textTheme.headline5),
-    ]);
+            SizedBox(height: 20),
+            Text(userData.userName.getOrCrash(),
+                style: Theme.of(context).textTheme.headline3),
+            Text("1234", style: Theme.of(context).textTheme.headline5),
+          ]);
+        }
+      },
+      loading: () => CircularProgressIndicator(),
+      error: (error, stackTrace) => Center(child: Text("Error : $error")),
+    );
   }
 }

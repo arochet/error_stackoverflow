@@ -1,3 +1,4 @@
+import 'package:base_de_projet/domain/core/value_validators.dart';
 import 'package:dartz/dartz.dart';
 import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
@@ -47,7 +48,7 @@ class UniqueId extends ValueObject<String> {
     return UniqueId._(right(Uuid().v1()));
   }
   factory UniqueId.fromUniqueString(String uniqueId) {
-    return UniqueId._(right(uniqueId));
+    return UniqueId._(validateStringNotEmpty(uniqueId));
   }
   const UniqueId._(this.value);
 }

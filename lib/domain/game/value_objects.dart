@@ -30,7 +30,6 @@ class Winner extends ValueObject<WinnerState> {
   }
 
   factory Winner.fromString(String input) {
-    print("my winner $input");
     final WinnerState state =
         WinnerState.values.firstWhere((e) => e.toShortString() == input);
     if (state == null)
@@ -51,7 +50,6 @@ class BlackPlayer extends ValueObject<BlackPlayerState> {
   }
 
   factory BlackPlayer.fromString(String input) {
-    print("mon balck payer $input");
     final BlackPlayerState state =
         BlackPlayerState.values.firstWhere((e) => e.toShortString() == input);
     if (state == null)

@@ -10,6 +10,7 @@ import 'package:base_de_projet/domain/auth/user_auth.dart';
 import 'package:base_de_projet/domain/auth/user_data.dart';
 import 'package:base_de_projet/domain/core/value_objects.dart';
 import 'package:base_de_projet/domain/game/game.dart';
+import 'package:base_de_projet/domain/game/statistiques.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -75,8 +76,31 @@ final currentUserData = FutureProvider.autoDispose<UserData?>((ref) async {
     return user;
 });
 
+final userDataFromId =
+    FutureProvider.family<UserData?, String>((ref, idPlayer) async {
+  final userOption = await getIt<AuthRepository>()
+      .getUserDataWithId(UniqueId.fromUniqueString(idPlayer));
+  final user = userOption.getOrElse(() => UserData.empty());
+
+  if (user == UserData.empty() || userOption.isNone())
+    return null;
+  else
+    return user;
+});
+
 final currentPhotoProfile = FutureProvider.autoDispose<Image?>((ref) async {
   return await getIt<AuthRepository>().getPhotoProfile();
+});
+
+final playerPhotoProfile =
+    FutureProvider.family<Image?, UniqueId>((ref, id) async {
+  return await getIt<AuthRepository>().getPhotoProfileOfPlayer(id);
+});
+
+final statistiquesCurrentUser =
+    FutureProvider.autoDispose<Statistiques?>((ref) async {
+  final user = await ref.watch(currentUser.future);
+  return await getIt<GameRepository>().getStatistiques(user.id);
 });
 
 //GAME
@@ -97,3 +121,23 @@ final gameNotifierProvider =
     StateNotifierProvider<GameNotifier, MyCurrentGameData>(
   (ref) => GameNotifier(ref.watch(gameRepositoryProvider)),
 );
+
+final userDataPlayer =
+    FutureProvider.family<UserData?, bool>((ref, isPlayerOne) async {
+  final game = ref.watch(currentGameProvider).data?.value;
+  if (game == null) return null;
+
+  final strId = isPlayerOne ? game.idPlayerOne : game.idPlayerTwo;
+  if (strId.isEmpty) {
+    print("STR ID is null !");
+    return null;
+  }
+  final userOption = await getIt<AuthRepository>()
+      .getUserDataWithId(UniqueId.fromUniqueString(strId));
+  final user = userOption.getOrElse(() => UserData.empty());
+
+  if (user == UserData.empty() || userOption.isNone())
+    return null;
+  else
+    return user;
+});

@@ -1,4 +1,3 @@
-import 'package:base_de_projet/presentation/core/router.dart';
 import 'package:base_de_projet/presentation/core/theme.dart';
 import 'package:flutter/material.dart';
 

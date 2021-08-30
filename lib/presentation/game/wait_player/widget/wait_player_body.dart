@@ -2,6 +2,7 @@ import 'package:another_flushbar/flushbar.dart';
 import 'package:base_de_projet/application/game/game_notifier.dart';
 import 'package:base_de_projet/presentation/core/router.dart';
 import 'package:base_de_projet/presentation/core/theme.dart';
+import 'package:base_de_projet/presentation/game/widget/flushbar_game_failure.dart';
 import 'package:base_de_projet/providers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -20,17 +21,7 @@ class WaitPlayerBody extends StatelessWidget {
             () {},
             (either) => either.fold((failure) {
                   //Message d'erreur
-                  Flushbar(
-                    duration: const Duration(seconds: 3),
-                    icon: const Icon(Icons.warning),
-                    messageColor: Colors.red,
-                    message: failure.map(
-                      noInternet: (_) => 'Pas d\'internet',
-                      serverError: (_) => 'Server Error',
-                      userAlreadyCreatedGame: (_) =>
-                          'Vous avez déjà créé une partie',
-                    ),
-                  ).show(context);
+                  FlushbarGameFailure.show(context, failure);
                 }, (_id) {
                   Future.delayed(Duration.zero, () async {
                     context.read(uniqueIdCurrentGameProvider).state = _id;
@@ -93,16 +84,11 @@ class WaitPlayerBodyWidget extends ConsumerWidget {
                   style: Theme.of(context).textTheme.headline5,
                 ),
                 SizedBox(height: 30),
-                GestureDetector(
-                  onTap: () {
-                    Navigator.pushNamed(context, AppRouter.gameChooseTeam);
-                  },
-                  child: Container(
-                    color: Colors.black12,
-                    width: 200,
-                    height: 200,
-                    child: Placeholder(),
-                  ),
+                Container(
+                  color: Colors.black12,
+                  width: 200,
+                  height: 200,
+                  child: Placeholder(),
                 ),
                 SizedBox(height: 20),
                 Consumer(builder: (context, watch, _) {

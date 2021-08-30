@@ -36,7 +36,6 @@ class ScanQrCodeBody extends StatelessWidget {
                       ).show(context);
                     }, (_id) {
                       Future.delayed(Duration.zero, () async {
-                        print("mon id de game $_id");
                         context.read(uniqueIdCurrentGameProvider).state = _id;
                         Navigator.pushNamed(context, AppRouter.gameWaitPlayer);
                       });
@@ -112,7 +111,6 @@ class _QRCodeState extends State<QRCode> {
     controller.scannedDataStream.listen((scanData) {
       setState(() {
         result = scanData;
-        print("QRcode result");
         final code = result?.code;
         if (code != null)
           context.read(gameNotifierProvider.notifier).newGame(code);

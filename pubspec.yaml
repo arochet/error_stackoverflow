@@ -79,6 +79,7 @@ flutter:
     - assets/images/chess3.jpeg
     - assets/images/chess4.jpeg
     - assets/images/chess5.jpeg
+    - assets/icon/noavatar.png
   #   - images/a_dot_ham.jpeg
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

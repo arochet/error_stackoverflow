@@ -19,15 +19,19 @@ class _$MyCurrentGameDataTearOff {
   _MyCurrentGameData call(
       {required String idAdversaire,
       required bool? iAmFirstPlayer,
-      required bool? iAmBlackPlayer,
       required bool? iWin,
+      required UniqueId? idGame,
+      required Option<Either<GameFailure, bool>> iAmBlackPlayerOrFailure,
+      required Option<Either<GameFailure, Unit>> setWinnerOrFailure,
       required Option<Either<GameFailure, UniqueId>>
           idGameFailureOrSuccessOption}) {
     return _MyCurrentGameData(
       idAdversaire: idAdversaire,
       iAmFirstPlayer: iAmFirstPlayer,
-      iAmBlackPlayer: iAmBlackPlayer,
       iWin: iWin,
+      idGame: idGame,
+      iAmBlackPlayerOrFailure: iAmBlackPlayerOrFailure,
+      setWinnerOrFailure: setWinnerOrFailure,
       idGameFailureOrSuccessOption: idGameFailureOrSuccessOption,
     );
   }
@@ -40,8 +44,12 @@ const $MyCurrentGameData = _$MyCurrentGameDataTearOff();
 mixin _$MyCurrentGameData {
   String get idAdversaire => throw _privateConstructorUsedError;
   bool? get iAmFirstPlayer => throw _privateConstructorUsedError;
-  bool? get iAmBlackPlayer => throw _privateConstructorUsedError;
   bool? get iWin => throw _privateConstructorUsedError;
+  UniqueId? get idGame => throw _privateConstructorUsedError;
+  Option<Either<GameFailure, bool>> get iAmBlackPlayerOrFailure =>
+      throw _privateConstructorUsedError;
+  Option<Either<GameFailure, Unit>> get setWinnerOrFailure =>
+      throw _privateConstructorUsedError;
   Option<Either<GameFailure, UniqueId>> get idGameFailureOrSuccessOption =>
       throw _privateConstructorUsedError;
 
@@ -58,8 +66,10 @@ abstract class $MyCurrentGameDataCopyWith<$Res> {
   $Res call(
       {String idAdversaire,
       bool? iAmFirstPlayer,
-      bool? iAmBlackPlayer,
       bool? iWin,
+      UniqueId? idGame,
+      Option<Either<GameFailure, bool>> iAmBlackPlayerOrFailure,
+      Option<Either<GameFailure, Unit>> setWinnerOrFailure,
       Option<Either<GameFailure, UniqueId>> idGameFailureOrSuccessOption});
 }
 
@@ -76,8 +86,10 @@ class _$MyCurrentGameDataCopyWithImpl<$Res>
   $Res call({
     Object? idAdversaire = freezed,
     Object? iAmFirstPlayer = freezed,
-    Object? iAmBlackPlayer = freezed,
     Object? iWin = freezed,
+    Object? idGame = freezed,
+    Object? iAmBlackPlayerOrFailure = freezed,
+    Object? setWinnerOrFailure = freezed,
     Object? idGameFailureOrSuccessOption = freezed,
   }) {
     return _then(_value.copyWith(
@@ -89,14 +101,22 @@ class _$MyCurrentGameDataCopyWithImpl<$Res>
           ? _value.iAmFirstPlayer
           : iAmFirstPlayer // ignore: cast_nullable_to_non_nullable
               as bool?,
-      iAmBlackPlayer: iAmBlackPlayer == freezed
-          ? _value.iAmBlackPlayer
-          : iAmBlackPlayer // ignore: cast_nullable_to_non_nullable
-              as bool?,
       iWin: iWin == freezed
           ? _value.iWin
           : iWin // ignore: cast_nullable_to_non_nullable
               as bool?,
+      idGame: idGame == freezed
+          ? _value.idGame
+          : idGame // ignore: cast_nullable_to_non_nullable
+              as UniqueId?,
+      iAmBlackPlayerOrFailure: iAmBlackPlayerOrFailure == freezed
+          ? _value.iAmBlackPlayerOrFailure
+          : iAmBlackPlayerOrFailure // ignore: cast_nullable_to_non_nullable
+              as Option<Either<GameFailure, bool>>,
+      setWinnerOrFailure: setWinnerOrFailure == freezed
+          ? _value.setWinnerOrFailure
+          : setWinnerOrFailure // ignore: cast_nullable_to_non_nullable
+              as Option<Either<GameFailure, Unit>>,
       idGameFailureOrSuccessOption: idGameFailureOrSuccessOption == freezed
           ? _value.idGameFailureOrSuccessOption
           : idGameFailureOrSuccessOption // ignore: cast_nullable_to_non_nullable
@@ -115,8 +135,10 @@ abstract class _$MyCurrentGameDataCopyWith<$Res>
   $Res call(
       {String idAdversaire,
       bool? iAmFirstPlayer,
-      bool? iAmBlackPlayer,
       bool? iWin,
+      UniqueId? idGame,
+      Option<Either<GameFailure, bool>> iAmBlackPlayerOrFailure,
+      Option<Either<GameFailure, Unit>> setWinnerOrFailure,
       Option<Either<GameFailure, UniqueId>> idGameFailureOrSuccessOption});
 }
 
@@ -135,8 +157,10 @@ class __$MyCurrentGameDataCopyWithImpl<$Res>
   $Res call({
     Object? idAdversaire = freezed,
     Object? iAmFirstPlayer = freezed,
-    Object? iAmBlackPlayer = freezed,
     Object? iWin = freezed,
+    Object? idGame = freezed,
+    Object? iAmBlackPlayerOrFailure = freezed,
+    Object? setWinnerOrFailure = freezed,
     Object? idGameFailureOrSuccessOption = freezed,
   }) {
     return _then(_MyCurrentGameData(
@@ -148,14 +172,22 @@ class __$MyCurrentGameDataCopyWithImpl<$Res>
           ? _value.iAmFirstPlayer
           : iAmFirstPlayer // ignore: cast_nullable_to_non_nullable
               as bool?,
-      iAmBlackPlayer: iAmBlackPlayer == freezed
-          ? _value.iAmBlackPlayer
-          : iAmBlackPlayer // ignore: cast_nullable_to_non_nullable
-              as bool?,
       iWin: iWin == freezed
           ? _value.iWin
           : iWin // ignore: cast_nullable_to_non_nullable
               as bool?,
+      idGame: idGame == freezed
+          ? _value.idGame
+          : idGame // ignore: cast_nullable_to_non_nullable
+              as UniqueId?,
+      iAmBlackPlayerOrFailure: iAmBlackPlayerOrFailure == freezed
+          ? _value.iAmBlackPlayerOrFailure
+          : iAmBlackPlayerOrFailure // ignore: cast_nullable_to_non_nullable
+              as Option<Either<GameFailure, bool>>,
+      setWinnerOrFailure: setWinnerOrFailure == freezed
+          ? _value.setWinnerOrFailure
+          : setWinnerOrFailure // ignore: cast_nullable_to_non_nullable
+              as Option<Either<GameFailure, Unit>>,
       idGameFailureOrSuccessOption: idGameFailureOrSuccessOption == freezed
           ? _value.idGameFailureOrSuccessOption
           : idGameFailureOrSuccessOption // ignore: cast_nullable_to_non_nullable
@@ -170,8 +202,10 @@ class _$_MyCurrentGameData implements _MyCurrentGameData {
   const _$_MyCurrentGameData(
       {required this.idAdversaire,
       required this.iAmFirstPlayer,
-      required this.iAmBlackPlayer,
       required this.iWin,
+      required this.idGame,
+      required this.iAmBlackPlayerOrFailure,
+      required this.setWinnerOrFailure,
       required this.idGameFailureOrSuccessOption});
 
   @override
@@ -179,15 +213,19 @@ class _$_MyCurrentGameData implements _MyCurrentGameData {
   @override
   final bool? iAmFirstPlayer;
   @override
-  final bool? iAmBlackPlayer;
-  @override
   final bool? iWin;
+  @override
+  final UniqueId? idGame;
+  @override
+  final Option<Either<GameFailure, bool>> iAmBlackPlayerOrFailure;
+  @override
+  final Option<Either<GameFailure, Unit>> setWinnerOrFailure;
   @override
   final Option<Either<GameFailure, UniqueId>> idGameFailureOrSuccessOption;
 
   @override
   String toString() {
-    return 'MyCurrentGameData(idAdversaire: $idAdversaire, iAmFirstPlayer: $iAmFirstPlayer, iAmBlackPlayer: $iAmBlackPlayer, iWin: $iWin, idGameFailureOrSuccessOption: $idGameFailureOrSuccessOption)';
+    return 'MyCurrentGameData(idAdversaire: $idAdversaire, iAmFirstPlayer: $iAmFirstPlayer, iWin: $iWin, idGame: $idGame, iAmBlackPlayerOrFailure: $iAmBlackPlayerOrFailure, setWinnerOrFailure: $setWinnerOrFailure, idGameFailureOrSuccessOption: $idGameFailureOrSuccessOption)';
   }
 
   @override
@@ -200,11 +238,17 @@ class _$_MyCurrentGameData implements _MyCurrentGameData {
             (identical(other.iAmFirstPlayer, iAmFirstPlayer) ||
                 const DeepCollectionEquality()
                     .equals(other.iAmFirstPlayer, iAmFirstPlayer)) &&
-            (identical(other.iAmBlackPlayer, iAmBlackPlayer) ||
-                const DeepCollectionEquality()
-                    .equals(other.iAmBlackPlayer, iAmBlackPlayer)) &&
             (identical(other.iWin, iWin) ||
                 const DeepCollectionEquality().equals(other.iWin, iWin)) &&
+            (identical(other.idGame, idGame) ||
+                const DeepCollectionEquality().equals(other.idGame, idGame)) &&
+            (identical(
+                    other.iAmBlackPlayerOrFailure, iAmBlackPlayerOrFailure) ||
+                const DeepCollectionEquality().equals(
+                    other.iAmBlackPlayerOrFailure, iAmBlackPlayerOrFailure)) &&
+            (identical(other.setWinnerOrFailure, setWinnerOrFailure) ||
+                const DeepCollectionEquality()
+                    .equals(other.setWinnerOrFailure, setWinnerOrFailure)) &&
             (identical(other.idGameFailureOrSuccessOption,
                     idGameFailureOrSuccessOption) ||
                 const DeepCollectionEquality().equals(
@@ -217,8 +261,10 @@ class _$_MyCurrentGameData implements _MyCurrentGameData {
       runtimeType.hashCode ^
       const DeepCollectionEquality().hash(idAdversaire) ^
       const DeepCollectionEquality().hash(iAmFirstPlayer) ^
-      const DeepCollectionEquality().hash(iAmBlackPlayer) ^
       const DeepCollectionEquality().hash(iWin) ^
+      const DeepCollectionEquality().hash(idGame) ^
+      const DeepCollectionEquality().hash(iAmBlackPlayerOrFailure) ^
+      const DeepCollectionEquality().hash(setWinnerOrFailure) ^
       const DeepCollectionEquality().hash(idGameFailureOrSuccessOption);
 
   @JsonKey(ignore: true)
@@ -231,8 +277,10 @@ abstract class _MyCurrentGameData implements MyCurrentGameData {
   const factory _MyCurrentGameData(
       {required String idAdversaire,
       required bool? iAmFirstPlayer,
-      required bool? iAmBlackPlayer,
       required bool? iWin,
+      required UniqueId? idGame,
+      required Option<Either<GameFailure, bool>> iAmBlackPlayerOrFailure,
+      required Option<Either<GameFailure, Unit>> setWinnerOrFailure,
       required Option<Either<GameFailure, UniqueId>>
           idGameFailureOrSuccessOption}) = _$_MyCurrentGameData;
 
@@ -241,9 +289,15 @@ abstract class _MyCurrentGameData implements MyCurrentGameData {
   @override
   bool? get iAmFirstPlayer => throw _privateConstructorUsedError;
   @override
-  bool? get iAmBlackPlayer => throw _privateConstructorUsedError;
-  @override
   bool? get iWin => throw _privateConstructorUsedError;
+  @override
+  UniqueId? get idGame => throw _privateConstructorUsedError;
+  @override
+  Option<Either<GameFailure, bool>> get iAmBlackPlayerOrFailure =>
+      throw _privateConstructorUsedError;
+  @override
+  Option<Either<GameFailure, Unit>> get setWinnerOrFailure =>
+      throw _privateConstructorUsedError;
   @override
   Option<Either<GameFailure, UniqueId>> get idGameFailureOrSuccessOption =>
       throw _privateConstructorUsedError;

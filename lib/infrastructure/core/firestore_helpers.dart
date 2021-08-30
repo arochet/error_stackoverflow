@@ -1,4 +1,5 @@
 import 'package:base_de_projet/domain/auth/user_auth.dart';
+import 'package:base_de_projet/domain/core/value_objects.dart';
 import 'package:base_de_projet/infrastructure/auth/auth_repository.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:base_de_projet/domain/core/errors.dart';
@@ -11,6 +12,12 @@ extension FirestoreX on FirebaseFirestore {
     return FirebaseFirestore.instance
         .collection('user')
         .doc(user.id.getOrCrash());
+  }
+
+  Future<DocumentReference> playerDocument(UniqueId idPlayer) async {
+    return FirebaseFirestore.instance
+        .collection('user')
+        .doc(idPlayer.getOrCrash());
   }
 
   CollectionReference gameDocument() {

@@ -8,6 +8,7 @@ import 'package:base_de_projet/domain/auth/reset_password_failure.dart';
 import 'package:base_de_projet/domain/auth/server_failure.dart';
 import 'package:base_de_projet/domain/auth/user_data.dart';
 import 'package:base_de_projet/domain/auth/value_objects.dart';
+import 'package:base_de_projet/domain/core/value_objects.dart';
 import 'package:base_de_projet/infrastructure/auth/user_data_dtos.dart';
 import 'package:base_de_projet/infrastructure/core/check_internet_connexion.dart';
 import 'package:base_de_projet/infrastructure/core/crypt.dart';
@@ -28,6 +29,7 @@ abstract class AuthRepository {
   Future<Option<UserData>> getUserData();
   bool isUserEmailVerified();
   Option<User> getUser();
+  Future<Option<UserData>> getUserDataWithId(UniqueId idPlayer);
   Future<Either<AuthFailure, Unit>> registerWithEmailAndPassword(
       {required UserData userData, required Password password});
   Future<Either<AuthFailure, Unit>> modifyAccount({required UserData userData});
@@ -45,6 +47,7 @@ abstract class AuthRepository {
   Future<void> signOut();
   Future<Either<ServerFailure, Unit>> uploadPhotoProfile(File file);
   Future<Image?> getPhotoProfile();
+  Future<Image?> getPhotoProfileOfPlayer(UniqueId idPlayer);
 }
 
 @LazySingleton(as: AuthRepository)
@@ -185,6 +188,16 @@ class FirebaseAuthFacade implements AuthRepository {
   @override
   Future<Option<UserData>> getUserData() async {
     final userDoc = await _firestore.userDocument();
+    final docSnapshot = await userDoc.get();
+    if (docSnapshot.exists) {
+      return some(UserDataDTO.fromFirestore(docSnapshot).toDomain());
+    }
+    return none();
+  }
+
+  @override
+  Future<Option<UserData>> getUserDataWithId(UniqueId idPlayer) async {
+    final userDoc = await _firestore.playerDocument(idPlayer);
     final docSnapshot = await userDoc.get();
     if (docSnapshot.exists) {
       return some(UserDataDTO.fromFirestore(docSnapshot).toDomain());
@@ -373,6 +386,21 @@ class FirebaseAuthFacade implements AuthRepository {
       final id = userOption.fold(() => null, (u) => u.uid);
       if (id == null) return null;
 
+      String downloadURL =
+          await _storage.ref('user/$id/photo-profile.png').getDownloadURL();
+      if (downloadURL == "") return null;
+      return Image.network(downloadURL);
+    } on FirebaseException catch (e) {
+      print("FatalException $e");
+      print(e.code);
+      return null;
+    }
+  }
+
+  @override
+  Future<Image?> getPhotoProfileOfPlayer(UniqueId idPlayer) async {
+    try {
+      final id = idPlayer.getOrCrash();
       String downloadURL =
           await _storage.ref('user/$id/photo-profile.png').getDownloadURL();
       if (downloadURL == "") return null;
