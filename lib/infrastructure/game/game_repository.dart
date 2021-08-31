@@ -4,9 +4,11 @@ import 'package:base_de_projet/domain/game/game.dart';
 import 'package:base_de_projet/domain/game/game_failure.dart';
 import 'package:base_de_projet/domain/game/statistiques.dart';
 import 'package:base_de_projet/domain/game/value_objects.dart';
+import 'package:base_de_projet/infrastructure/auth/auth_repository.dart';
 import 'package:base_de_projet/infrastructure/core/firestore_helpers.dart';
 import 'package:base_de_projet/infrastructure/core/check_internet_connexion.dart';
 import 'package:base_de_projet/infrastructure/game/game_dtos.dart';
+import 'package:base_de_projet/injection.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dartz/dartz.dart';
 import 'package:injectable/injectable.dart';
@@ -15,12 +17,13 @@ abstract class GameRepository {
   Future<Either<GameFailure, UniqueId>> createGame(String idTable);
   Future<Either<GameFailure, UniqueId>> newGame(String idTable);
   Stream<Game?> getCurrentGame(UniqueId idCurrentGame);
-  Stream<bool> currentGameHaveTwoPlayer(UniqueId idCurrentGame);
+  Stream<UniqueId?> currentGameHaveTwoPlayer(UniqueId idCurrentGame);
   Future<Either<GameFailure, bool>> setBlackPlayer(
       bool isBlackPlayer, UniqueId idGame);
   Future<Either<GameFailure, bool>> isFirstPlayer(UniqueId idCurrentGame);
   Future<Either<GameFailure, Unit>> enGame(
       UniqueId idCurrentGame, WinnerState win);
+  Future<Either<GameFailure, Unit>> cancelGame(UniqueId idGame);
   Future<Statistiques?> getStatistiques(UniqueId id);
 }
 
@@ -112,21 +115,32 @@ class FirebaseGameFacade implements GameRepository {
   }
 
   @override
-  Stream<bool> currentGameHaveTwoPlayer(UniqueId idCurrentGame) {
-    Stream<Game?> game = getCurrentGame(idCurrentGame);
-    if (false) {
-      return Stream.error("Game is fucking null");
-    }
-
-    return game.map((g) {
-      if (g != null) {
-        if (g.idPlayerOne == g.idPlayerTwo) {
-          return false;
-        }
-        return g.idPlayerOne != "" && g.idPlayerTwo != "";
-      } else
-        return false;
+  Stream<UniqueId?> currentGameHaveTwoPlayer(UniqueId idCurrentGame) {
+    Stream<Game?> streamGame = getCurrentGame(idCurrentGame);
+    final idUser = getIt<AuthRepository>().getUser();
+    final res = idUser.fold(() => null, (user) {
+      return streamGame.map((g) {
+        if (g != null) {
+          if (g.idPlayerOne == g.idPlayerTwo) {
+            return null;
+          }
+          if (g.idPlayerOne != "" && g.idPlayerTwo != "") {
+            if (g.idPlayerOne == user.uid)
+              return UniqueId.fromUniqueString(g.idPlayerTwo);
+            else
+              return UniqueId.fromUniqueString(g.idPlayerOne);
+          } else {
+            return null;
+          }
+        } else
+          return null;
+      });
     });
+
+    if (res == null)
+      return Stream.empty();
+    else
+      return res;
   }
 
   @override
@@ -193,9 +207,53 @@ class FirebaseGameFacade implements GameRepository {
     try {
       final doc =
           this._firestore.gameDocument().doc(idCurrentGame.getOrCrash());
-      doc.update({'winner': win.toShortString()});
 
-      return right(unit);
+      final eitherIsFirstPlayer = await this.isFirstPlayer(idCurrentGame);
+      return eitherIsFirstPlayer.fold(
+        (l) => left(GameFailure.serverError()),
+        (isFirstPlayer) async {
+          final gameDTO = GameDTO.fromFirestore(await doc.get());
+          VerificationWinState? laVerif;
+          VerificationWinState verificationEncour =
+              VerificationWin.fromString(gameDTO.verification).getOrCrash();
+          WinnerState winStateInGame =
+              Winner.fromString(gameDTO.winner).getOrCrash();
+          //Set verification
+          switch (verificationEncour) {
+            case VerificationWinState.none:
+              if (isFirstPlayer) {
+                laVerif = VerificationWinState.playerOneOK;
+              } else {
+                laVerif = VerificationWinState.playerTwoOK;
+              }
+              doc.update({'winner': win.toShortString()});
+              break;
+            case VerificationWinState.playerOneOK:
+              if (!isFirstPlayer) {
+                if (win == winStateInGame)
+                  laVerif = VerificationWinState.GameVerified;
+                else
+                  doc.update({'winner': win.toShortString()});
+              } else
+                doc.update({'winner': win.toShortString()});
+              break;
+            case VerificationWinState.playerTwoOK:
+              if (isFirstPlayer) {
+                if (win == winStateInGame)
+                  laVerif = VerificationWinState.GameVerified;
+                else
+                  doc.update({'winner': win.toShortString()});
+              } else
+                doc.update({'winner': win.toShortString()});
+              break;
+            case VerificationWinState.GameVerified:
+              break;
+          }
+          if (laVerif != null)
+            doc.update({'verification': laVerif.toShortString()});
+          return right(unit);
+        },
+      );
     } on FirebaseException catch (e) {
       switch (e.code) {
         default:
@@ -211,11 +269,19 @@ class FirebaseGameFacade implements GameRepository {
       final snapshotPlayerOne = this
           ._firestore
           .gameDocument()
-          .where('idPlayerOne', isEqualTo: id.getOrCrash());
+          .where('idPlayerOne', isEqualTo: id.getOrCrash())
+          .where('winner', whereIn: [
+        WinnerState.playerOneWin.toShortString(),
+        WinnerState.playerTwoWin.toShortString()
+      ]);
       final snapshotPlayerTwo = this
           ._firestore
           .gameDocument()
-          .where('idPlayerTwo', isEqualTo: id.getOrCrash());
+          .where('idPlayerTwo', isEqualTo: id.getOrCrash())
+          .where('winner', whereIn: [
+        WinnerState.playerOneWin.toShortString(),
+        WinnerState.playerTwoWin.toShortString()
+      ]);
       final gameOne = await snapshotPlayerOne.get();
       final gameTwo = await snapshotPlayerTwo.get();
       final len = gameOne.docs.length + gameTwo.docs.length;
@@ -234,6 +300,21 @@ class FirebaseGameFacade implements GameRepository {
       switch (e.code) {
         default:
           return null;
+      }
+    }
+  }
+
+  @override
+  Future<Either<GameFailure, Unit>> cancelGame(UniqueId idGame) async {
+    if (!await checkInternetConnexion()) return left(GameFailure.noInternet());
+    try {
+      final doc = this._firestore.gameDocument().doc(idGame.getOrCrash());
+      doc.update({'winner': WinnerState.cancelled.toShortString()});
+      return right(unit);
+    } on FirebaseException catch (e) {
+      switch (e.code) {
+        default:
+          return left(GameFailure.serverError());
       }
     }
   }

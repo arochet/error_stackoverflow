@@ -12,6 +12,7 @@ _$_GameDTO _$_$_GameDTOFromJson(Map<String, dynamic> json) {
     idPlayerOne: json['idPlayerOne'] as String,
     idPlayerTwo: json['idPlayerTwo'] as String,
     blackPlayer: json['blackPlayer'] as String,
+    verification: json['verification'] as String,
     timestampCreation: const ServerTimestampConverter()
         .fromJson(json['timestampCreation'] as Object),
     winner: json['winner'] as String,
@@ -24,6 +25,7 @@ Map<String, dynamic> _$_$_GameDTOToJson(_$_GameDTO instance) =>
       'idPlayerOne': instance.idPlayerOne,
       'idPlayerTwo': instance.idPlayerTwo,
       'blackPlayer': instance.blackPlayer,
+      'verification': instance.verification,
       'timestampCreation':
           const ServerTimestampConverter().toJson(instance.timestampCreation),
       'winner': instance.winner,

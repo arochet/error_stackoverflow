@@ -20,6 +20,7 @@ class _ScanQrCodePageState extends State<ScanQrCodePage> {
     WidgetsBinding.instance!.addPostFrameCallback((_) async {
       await context.read(gameNotifierProvider.notifier).reinit();
       context.refresh(gameNotifierProvider);
+      context.read(qrCodeOkay).state = false;
     });
   }
 

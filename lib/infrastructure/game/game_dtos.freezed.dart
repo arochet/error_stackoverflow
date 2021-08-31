@@ -26,6 +26,7 @@ class _$GameDTOTearOff {
       required String idPlayerOne,
       required String idPlayerTwo,
       required String blackPlayer,
+      required String verification,
       @ServerTimestampConverter() required FieldValue timestampCreation,
       required String winner}) {
     return _GameDTO(
@@ -34,6 +35,7 @@ class _$GameDTOTearOff {
       idPlayerOne: idPlayerOne,
       idPlayerTwo: idPlayerTwo,
       blackPlayer: blackPlayer,
+      verification: verification,
       timestampCreation: timestampCreation,
       winner: winner,
     );
@@ -55,6 +57,7 @@ mixin _$GameDTO {
   String get idPlayerOne => throw _privateConstructorUsedError;
   String get idPlayerTwo => throw _privateConstructorUsedError;
   String get blackPlayer => throw _privateConstructorUsedError;
+  String get verification => throw _privateConstructorUsedError;
   @ServerTimestampConverter()
   FieldValue get timestampCreation => throw _privateConstructorUsedError;
   String get winner => throw _privateConstructorUsedError;
@@ -74,6 +77,7 @@ abstract class $GameDTOCopyWith<$Res> {
       String idPlayerOne,
       String idPlayerTwo,
       String blackPlayer,
+      String verification,
       @ServerTimestampConverter() FieldValue timestampCreation,
       String winner});
 }
@@ -93,6 +97,7 @@ class _$GameDTOCopyWithImpl<$Res> implements $GameDTOCopyWith<$Res> {
     Object? idPlayerOne = freezed,
     Object? idPlayerTwo = freezed,
     Object? blackPlayer = freezed,
+    Object? verification = freezed,
     Object? timestampCreation = freezed,
     Object? winner = freezed,
   }) {
@@ -117,6 +122,10 @@ class _$GameDTOCopyWithImpl<$Res> implements $GameDTOCopyWith<$Res> {
           ? _value.blackPlayer
           : blackPlayer // ignore: cast_nullable_to_non_nullable
               as String,
+      verification: verification == freezed
+          ? _value.verification
+          : verification // ignore: cast_nullable_to_non_nullable
+              as String,
       timestampCreation: timestampCreation == freezed
           ? _value.timestampCreation
           : timestampCreation // ignore: cast_nullable_to_non_nullable
@@ -140,6 +149,7 @@ abstract class _$GameDTOCopyWith<$Res> implements $GameDTOCopyWith<$Res> {
       String idPlayerOne,
       String idPlayerTwo,
       String blackPlayer,
+      String verification,
       @ServerTimestampConverter() FieldValue timestampCreation,
       String winner});
 }
@@ -160,6 +170,7 @@ class __$GameDTOCopyWithImpl<$Res> extends _$GameDTOCopyWithImpl<$Res>
     Object? idPlayerOne = freezed,
     Object? idPlayerTwo = freezed,
     Object? blackPlayer = freezed,
+    Object? verification = freezed,
     Object? timestampCreation = freezed,
     Object? winner = freezed,
   }) {
@@ -184,6 +195,10 @@ class __$GameDTOCopyWithImpl<$Res> extends _$GameDTOCopyWithImpl<$Res>
           ? _value.blackPlayer
           : blackPlayer // ignore: cast_nullable_to_non_nullable
               as String,
+      verification: verification == freezed
+          ? _value.verification
+          : verification // ignore: cast_nullable_to_non_nullable
+              as String,
       timestampCreation: timestampCreation == freezed
           ? _value.timestampCreation
           : timestampCreation // ignore: cast_nullable_to_non_nullable
@@ -205,6 +220,7 @@ class _$_GameDTO extends _GameDTO {
       required this.idPlayerOne,
       required this.idPlayerTwo,
       required this.blackPlayer,
+      required this.verification,
       @ServerTimestampConverter() required this.timestampCreation,
       required this.winner})
       : super._();
@@ -224,6 +240,8 @@ class _$_GameDTO extends _GameDTO {
   @override
   final String blackPlayer;
   @override
+  final String verification;
+  @override
   @ServerTimestampConverter()
   final FieldValue timestampCreation;
   @override
@@ -231,7 +249,7 @@ class _$_GameDTO extends _GameDTO {
 
   @override
   String toString() {
-    return 'GameDTO(id: $id, idTable: $idTable, idPlayerOne: $idPlayerOne, idPlayerTwo: $idPlayerTwo, blackPlayer: $blackPlayer, timestampCreation: $timestampCreation, winner: $winner)';
+    return 'GameDTO(id: $id, idTable: $idTable, idPlayerOne: $idPlayerOne, idPlayerTwo: $idPlayerTwo, blackPlayer: $blackPlayer, verification: $verification, timestampCreation: $timestampCreation, winner: $winner)';
   }
 
   @override
@@ -252,6 +270,9 @@ class _$_GameDTO extends _GameDTO {
             (identical(other.blackPlayer, blackPlayer) ||
                 const DeepCollectionEquality()
                     .equals(other.blackPlayer, blackPlayer)) &&
+            (identical(other.verification, verification) ||
+                const DeepCollectionEquality()
+                    .equals(other.verification, verification)) &&
             (identical(other.timestampCreation, timestampCreation) ||
                 const DeepCollectionEquality()
                     .equals(other.timestampCreation, timestampCreation)) &&
@@ -267,6 +288,7 @@ class _$_GameDTO extends _GameDTO {
       const DeepCollectionEquality().hash(idPlayerOne) ^
       const DeepCollectionEquality().hash(idPlayerTwo) ^
       const DeepCollectionEquality().hash(blackPlayer) ^
+      const DeepCollectionEquality().hash(verification) ^
       const DeepCollectionEquality().hash(timestampCreation) ^
       const DeepCollectionEquality().hash(winner);
 
@@ -288,6 +310,7 @@ abstract class _GameDTO extends GameDTO {
       required String idPlayerOne,
       required String idPlayerTwo,
       required String blackPlayer,
+      required String verification,
       @ServerTimestampConverter() required FieldValue timestampCreation,
       required String winner}) = _$_GameDTO;
   const _GameDTO._() : super._();
@@ -305,6 +328,8 @@ abstract class _GameDTO extends GameDTO {
   String get idPlayerTwo => throw _privateConstructorUsedError;
   @override
   String get blackPlayer => throw _privateConstructorUsedError;
+  @override
+  String get verification => throw _privateConstructorUsedError;
   @override
   @ServerTimestampConverter()
   FieldValue get timestampCreation => throw _privateConstructorUsedError;

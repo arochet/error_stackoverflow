@@ -17,6 +17,7 @@ abstract class Game with _$Game {
     required String idPlayerTwo,
     required BlackPlayer blackPlayer,
     required Winner winner,
+    required VerificationWin verification,
   }) = _Game;
 
   factory Game.empty(String idTable, String idPlayerOne) => Game(
@@ -26,6 +27,7 @@ abstract class Game with _$Game {
         idPlayerTwo: "",
         blackPlayer: BlackPlayer(BlackPlayerState.notDefined),
         winner: Winner(WinnerState.inProgress),
+        verification: VerificationWin(VerificationWinState.none),
       );
 
   Option<ValueFailure<dynamic>> get failureOption {

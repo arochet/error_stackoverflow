@@ -20,12 +20,12 @@ class AuthInitPage extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  Text("Blitz Society",
-                      style: Theme.of(context).textTheme.headline2),
+                  /* Text("Blitz Society",
+                      style: Theme.of(context).textTheme.headline2), */
                   SizedBox(height: 20),
                   Image(
-                    image: AssetImage("assets/chess.png"),
-                    height: 120,
+                    image: AssetImage("assets/icon/logo-blitz.png"),
+                    height: 160,
                   ),
                 ],
               ),

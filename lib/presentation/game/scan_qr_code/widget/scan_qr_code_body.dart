@@ -9,6 +9,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
 
+final qrCodeOkay = StateProvider((ref) => false);
+
 class ScanQrCodeBody extends StatelessWidget {
   const ScanQrCodeBody({Key? key}) : super(key: key);
 
@@ -22,6 +24,7 @@ class ScanQrCodeBody extends StatelessWidget {
             myCurrentGameData.idGameFailureOrSuccessOption.fold(
                 () {},
                 (either) => either.fold((failure) {
+                      context.read(qrCodeOkay).state = false;
                       //Message d'erreur
                       Flushbar(
                         duration: const Duration(seconds: 3),
@@ -36,18 +39,19 @@ class ScanQrCodeBody extends StatelessWidget {
                       ).show(context);
                     }, (_id) {
                       Future.delayed(Duration.zero, () async {
+                        context.read(qrCodeOkay).state = true;
                         context.read(uniqueIdCurrentGameProvider).state = _id;
                         Navigator.pushNamed(context, AppRouter.gameWaitPlayer);
                       });
                     }));
           },
-          child: Container(), //QRCode(),
+          child: QRCode(),
         ),
-        ElevatedButton.icon(
+        /* ElevatedButton.icon(
             onPressed: () =>
                 context.read(gameNotifierProvider.notifier).newGame("Table-10"),
             icon: Icon(Icons.qr_code),
-            label: Text("Go")),
+            label: Text("Go")), */
         Center(
             heightFactor: 7,
             child: Text(
@@ -110,10 +114,14 @@ class _QRCodeState extends State<QRCode> {
     });
     controller.scannedDataStream.listen((scanData) {
       setState(() {
-        result = scanData;
-        final code = result?.code;
-        if (code != null)
-          context.read(gameNotifierProvider.notifier).newGame(code);
+        if (context.read(qrCodeOkay).state == false) {
+          result = scanData;
+          final code = result?.code;
+          if (code != null) {
+            context.read(qrCodeOkay).state = true;
+            context.read(gameNotifierProvider.notifier).newGame(code);
+          }
+        }
       });
     });
   }

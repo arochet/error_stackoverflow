@@ -5,7 +5,8 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:base_de_projet/domain/core/failures.dart';
 import 'package:base_de_projet/domain/core/value_objects.dart';
 
-enum WinnerState { inProgress, playerOneWin, playerTwoWin, draw }
+enum WinnerState { inProgress, playerOneWin, playerTwoWin, draw, cancelled }
+enum VerificationWinState { none, playerOneOK, playerTwoOK, GameVerified }
 enum BlackPlayerState { playerOne, playerTwo, notDefined }
 
 extension ParseToSringBP on BlackPlayerState {
@@ -15,6 +16,12 @@ extension ParseToSringBP on BlackPlayerState {
 }
 
 extension ParseToSringW on WinnerState {
+  String toShortString() {
+    return this.toString().toLowerCase();
+  }
+}
+
+extension ParseToSringVW on VerificationWinState {
   String toShortString() {
     return this.toString().toLowerCase();
   }
@@ -58,6 +65,27 @@ class BlackPlayer extends ValueObject<BlackPlayerState> {
   }
 
   const BlackPlayer._(this.value);
+}
+
+@immutable
+class VerificationWin extends ValueObject<VerificationWinState> {
+  @override
+  final Either<ValueFailure<VerificationWinState>, VerificationWinState> value;
+
+  factory VerificationWin(VerificationWinState input) {
+    return VerificationWin._(right(input));
+  }
+
+  factory VerificationWin.fromString(String input) {
+    final VerificationWinState state = VerificationWinState.values
+        .firstWhere((e) => e.toShortString() == input);
+    if (state == null)
+      return VerificationWin._(
+          left(ValueFailure.invalidEnum(failedValue: state)));
+    return VerificationWin._(right(state));
+  }
+
+  const VerificationWin._(this.value);
 }
 
 @immutable

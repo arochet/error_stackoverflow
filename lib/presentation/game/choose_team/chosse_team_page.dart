@@ -93,7 +93,12 @@ class ChooseTeamBottombar extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          CircleAvatar(radius: 40),
+          CircleAvatar(
+            radius: 40,
+            backgroundImage: teamBlack
+                ? AssetImage("assets/icon/icon-chess-choose-team-white.png")
+                : AssetImage("assets/icon/icon-chess-choose-team-black.png"),
+          ),
           SizedBox(height: 10),
           Text(
             teamBlack ? "Noir" : "Blanc",
@@ -124,14 +129,10 @@ class ChooseTeamBody extends ConsumerWidget {
             children: [
               NameOfPlayer(true),
               SizedBox(height: 20),
-              GestureDetector(
-                onTap: () =>
-                    Navigator.pushNamed(context, AppRouter.gameChooseTeam),
-                child: Container(
-                  width: 200,
-                  height: 200,
-                  child: Placeholder(),
-                ),
+              Container(
+                width: 200,
+                height: 200,
+                child: Image(image: AssetImage("assets/images/plateau.png")),
               ),
               SizedBox(height: 20),
               NameOfPlayer(false),

@@ -22,7 +22,8 @@ class _$GameTearOff {
       required String idPlayerOne,
       required String idPlayerTwo,
       required BlackPlayer blackPlayer,
-      required Winner winner}) {
+      required Winner winner,
+      required VerificationWin verification}) {
     return _Game(
       id: id,
       idTable: idTable,
@@ -30,6 +31,7 @@ class _$GameTearOff {
       idPlayerTwo: idPlayerTwo,
       blackPlayer: blackPlayer,
       winner: winner,
+      verification: verification,
     );
   }
 }
@@ -45,6 +47,7 @@ mixin _$Game {
   String get idPlayerTwo => throw _privateConstructorUsedError;
   BlackPlayer get blackPlayer => throw _privateConstructorUsedError;
   Winner get winner => throw _privateConstructorUsedError;
+  VerificationWin get verification => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $GameCopyWith<Game> get copyWith => throw _privateConstructorUsedError;
@@ -60,7 +63,8 @@ abstract class $GameCopyWith<$Res> {
       String idPlayerOne,
       String idPlayerTwo,
       BlackPlayer blackPlayer,
-      Winner winner});
+      Winner winner,
+      VerificationWin verification});
 }
 
 /// @nodoc
@@ -79,6 +83,7 @@ class _$GameCopyWithImpl<$Res> implements $GameCopyWith<$Res> {
     Object? idPlayerTwo = freezed,
     Object? blackPlayer = freezed,
     Object? winner = freezed,
+    Object? verification = freezed,
   }) {
     return _then(_value.copyWith(
       id: id == freezed
@@ -105,6 +110,10 @@ class _$GameCopyWithImpl<$Res> implements $GameCopyWith<$Res> {
           ? _value.winner
           : winner // ignore: cast_nullable_to_non_nullable
               as Winner,
+      verification: verification == freezed
+          ? _value.verification
+          : verification // ignore: cast_nullable_to_non_nullable
+              as VerificationWin,
     ));
   }
 }
@@ -120,7 +129,8 @@ abstract class _$GameCopyWith<$Res> implements $GameCopyWith<$Res> {
       String idPlayerOne,
       String idPlayerTwo,
       BlackPlayer blackPlayer,
-      Winner winner});
+      Winner winner,
+      VerificationWin verification});
 }
 
 /// @nodoc
@@ -140,6 +150,7 @@ class __$GameCopyWithImpl<$Res> extends _$GameCopyWithImpl<$Res>
     Object? idPlayerTwo = freezed,
     Object? blackPlayer = freezed,
     Object? winner = freezed,
+    Object? verification = freezed,
   }) {
     return _then(_Game(
       id: id == freezed
@@ -166,6 +177,10 @@ class __$GameCopyWithImpl<$Res> extends _$GameCopyWithImpl<$Res>
           ? _value.winner
           : winner // ignore: cast_nullable_to_non_nullable
               as Winner,
+      verification: verification == freezed
+          ? _value.verification
+          : verification // ignore: cast_nullable_to_non_nullable
+              as VerificationWin,
     ));
   }
 }
@@ -179,7 +194,8 @@ class _$_Game extends _Game {
       required this.idPlayerOne,
       required this.idPlayerTwo,
       required this.blackPlayer,
-      required this.winner})
+      required this.winner,
+      required this.verification})
       : super._();
 
   @override
@@ -194,10 +210,12 @@ class _$_Game extends _Game {
   final BlackPlayer blackPlayer;
   @override
   final Winner winner;
+  @override
+  final VerificationWin verification;
 
   @override
   String toString() {
-    return 'Game(id: $id, idTable: $idTable, idPlayerOne: $idPlayerOne, idPlayerTwo: $idPlayerTwo, blackPlayer: $blackPlayer, winner: $winner)';
+    return 'Game(id: $id, idTable: $idTable, idPlayerOne: $idPlayerOne, idPlayerTwo: $idPlayerTwo, blackPlayer: $blackPlayer, winner: $winner, verification: $verification)';
   }
 
   @override
@@ -219,7 +237,10 @@ class _$_Game extends _Game {
                 const DeepCollectionEquality()
                     .equals(other.blackPlayer, blackPlayer)) &&
             (identical(other.winner, winner) ||
-                const DeepCollectionEquality().equals(other.winner, winner)));
+                const DeepCollectionEquality().equals(other.winner, winner)) &&
+            (identical(other.verification, verification) ||
+                const DeepCollectionEquality()
+                    .equals(other.verification, verification)));
   }
 
   @override
@@ -230,7 +251,8 @@ class _$_Game extends _Game {
       const DeepCollectionEquality().hash(idPlayerOne) ^
       const DeepCollectionEquality().hash(idPlayerTwo) ^
       const DeepCollectionEquality().hash(blackPlayer) ^
-      const DeepCollectionEquality().hash(winner);
+      const DeepCollectionEquality().hash(winner) ^
+      const DeepCollectionEquality().hash(verification);
 
   @JsonKey(ignore: true)
   @override
@@ -245,7 +267,8 @@ abstract class _Game extends Game {
       required String idPlayerOne,
       required String idPlayerTwo,
       required BlackPlayer blackPlayer,
-      required Winner winner}) = _$_Game;
+      required Winner winner,
+      required VerificationWin verification}) = _$_Game;
   const _Game._() : super._();
 
   @override
@@ -260,6 +283,8 @@ abstract class _Game extends Game {
   BlackPlayer get blackPlayer => throw _privateConstructorUsedError;
   @override
   Winner get winner => throw _privateConstructorUsedError;
+  @override
+  VerificationWin get verification => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
   _$GameCopyWith<_Game> get copyWith => throw _privateConstructorUsedError;

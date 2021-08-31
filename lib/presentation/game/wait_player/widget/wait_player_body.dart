@@ -1,5 +1,6 @@
-import 'package:another_flushbar/flushbar.dart';
 import 'package:base_de_projet/application/game/game_notifier.dart';
+import 'package:base_de_projet/domain/core/value_objects.dart';
+import 'package:base_de_projet/domain/game/statistiques.dart';
 import 'package:base_de_projet/presentation/core/router.dart';
 import 'package:base_de_projet/presentation/core/theme.dart';
 import 'package:base_de_projet/presentation/game/widget/flushbar_game_failure.dart';
@@ -34,13 +35,15 @@ class WaitPlayerBody extends StatelessWidget {
   }
 }
 
-final streamTwoPlayerProvider = StreamProvider<bool>((ref) {
-  final id = ref.watch(uniqueIdCurrentGameProvider).state;
-  print("my ${id!.getOrCrash()}");
-  if (id == null) {
-    return Stream<bool>.empty();
+final streamTwoPlayerProvider = StreamProvider<UniqueId?>((ref) {
+  final idCurrentGame = ref.watch(uniqueIdCurrentGameProvider).state;
+  if (idCurrentGame == null) {
+    return Stream.empty();
   }
-  return ref.watch(gameRepositoryProvider).currentGameHaveTwoPlayer(id);
+  final res =
+      ref.watch(gameRepositoryProvider).currentGameHaveTwoPlayer(idCurrentGame);
+  print(res);
+  return res;
 });
 
 class WaitPlayerBodyWidget extends ConsumerWidget {
@@ -53,13 +56,18 @@ class WaitPlayerBodyWidget extends ConsumerWidget {
     final stream = watch(streamTwoPlayerProvider);
 
     return stream.when(
-        data: (foundTwoPlayer) {
-          if (foundTwoPlayer == true) {
+        data: (idOtherPlayer) {
+          print("foundTwoPlayer $idOtherPlayer");
+          if (idOtherPlayer != null) {
+            final streamOtherPlayerData =
+                watch(userDataFromId(idOtherPlayer.getOrCrash()));
+            final name =
+                streamOtherPlayerData.data?.value?.userName.getOrCrash();
             return Center(
               child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text("Second joueur trouvé !",
+                    Text("Jouez contre $name",
                         style: Theme.of(context).textTheme.headline3),
                     SizedBox(height: 30),
                     ElevatedButton(
@@ -88,11 +96,12 @@ class WaitPlayerBodyWidget extends ConsumerWidget {
                   color: Colors.black12,
                   width: 200,
                   height: 200,
-                  child: Placeholder(),
+                  child: Image(image: AssetImage("assets/images/plateau.png")),
                 ),
                 SizedBox(height: 20),
                 Consumer(builder: (context, watch, _) {
                   final userData = watch(currentUserData);
+                  final streamS = watch(statistiquesCurrentUser);
                   if (userData.data != null && userData.data!.value != null) {
                     //Value okay
                     return Column(
@@ -101,7 +110,15 @@ class WaitPlayerBodyWidget extends ConsumerWidget {
                           userData.data!.value!.userName.getOrCrash(),
                           style: Theme.of(context).textTheme.headline3,
                         ),
-                        Text("1335",
+                        Text(
+                            streamS.when(
+                              data: (stats) {
+                                stats = stats ?? Statistiques.empty();
+                                return stats.score.toString();
+                              },
+                              loading: () => '',
+                              error: (err, stack) => err.toString(),
+                            ),
                             style: Theme.of(context).textTheme.headline5),
                       ],
                     );
@@ -117,8 +134,14 @@ class WaitPlayerBodyWidget extends ConsumerWidget {
                 }),
                 SizedBox(height: 10),
                 ElevatedButton(
-                  onPressed: () =>
-                      Navigator.pushReplacementNamed(context, AppRouter.home),
+                  onPressed: () async {
+                    final idGame = context.read(uniqueIdCurrentGameProvider);
+                    if (idGame.state != null)
+                      await context
+                          .read(gameRepositoryProvider)
+                          .cancelGame(idGame.state!);
+                    Navigator.pushReplacementNamed(context, AppRouter.home);
+                  },
                   child: Text("Quitter"),
                   style: buttonPrimaryNormal,
                 )

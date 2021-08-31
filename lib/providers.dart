@@ -11,6 +11,7 @@ import 'package:base_de_projet/domain/auth/user_data.dart';
 import 'package:base_de_projet/domain/core/value_objects.dart';
 import 'package:base_de_projet/domain/game/game.dart';
 import 'package:base_de_projet/domain/game/statistiques.dart';
+import 'package:base_de_projet/domain/game/value_objects.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -103,6 +104,12 @@ final statistiquesCurrentUser =
   return await getIt<GameRepository>().getStatistiques(user.id);
 });
 
+final statistiquesPlayer =
+    FutureProvider.family<Statistiques?, UniqueId>((ref, id) async {
+  return await getIt<GameRepository>()
+      .getStatistiques(UniqueId.fromUniqueString(id.getOrCrash()));
+});
+
 //GAME
 final gameRepositoryProvider =
     Provider<GameRepository>((ref) => getIt<GameRepository>());
@@ -116,6 +123,18 @@ final currentGameProvider = StreamProvider<Game?>((ref) {
   else
     return Stream.empty();
 });
+
+/* final currentGameVerification = StreamProvider<VerificationWin>((ref) {
+  final streamG = ref.watch(currentGameProvider);
+  return streamG.when(
+    data: (game) {
+      if (game == null) return Stream.empty();
+      return game.verification;
+    },
+    loading: () => Stream.empty(),
+    error: (err, stack) => Stream.empty(),
+  );
+}); */
 
 final gameNotifierProvider =
     StateNotifierProvider<GameNotifier, MyCurrentGameData>(

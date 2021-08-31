@@ -1,5 +1,4 @@
 import 'package:base_de_projet/domain/auth/user_data.dart';
-import 'package:base_de_projet/domain/game/statistiques.dart';
 import 'package:base_de_projet/presentation/components/avatar.dart';
 import 'package:base_de_projet/presentation/components/bar_of_success.dart';
 import 'package:base_de_projet/providers.dart';
@@ -37,7 +36,7 @@ class AppBarHome extends StatelessWidget {
                       getUserName(context, userData),
                       Text(
                         stats.when(
-                          data: (s) => s?.nbGame.toString() ?? '',
+                          data: (s) => s?.score.toString() ?? '',
                           loading: () => '',
                           error: (err, stack) => err.toString(),
                         ),

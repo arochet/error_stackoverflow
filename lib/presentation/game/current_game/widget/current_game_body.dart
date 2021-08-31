@@ -19,7 +19,7 @@ class CurrentGameBody extends StatelessWidget {
           Container(
             width: 200,
             height: 200,
-            child: Placeholder(),
+            child: Image(image: AssetImage("assets/images/plateau.png")),
           ),
         ],
       ),

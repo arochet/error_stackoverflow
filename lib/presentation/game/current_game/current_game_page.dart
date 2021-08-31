@@ -1,3 +1,4 @@
+import 'package:base_de_projet/presentation/components/avatar.dart';
 import 'package:base_de_projet/presentation/components/page_with_appbar.dart';
 import 'package:base_de_projet/presentation/game/current_game/widget/current_game_appbar.dart';
 import 'package:base_de_projet/presentation/game/current_game/widget/current_game_body.dart';
@@ -43,11 +44,15 @@ class PlayerRow extends StatelessWidget {
                   child: Text("Error : Player Not Found"),
                 );
               else {
+                final streamS = watch(statistiquesPlayer(userData.id));
+                final data = streamS.data ?? null;
+                final asyncStat = data != null ? data.value : null;
+                final score = asyncStat != null ? asyncStat.score : 0;
                 return Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    CircleAvatar(radius: 30),
+                    AvatarPlayerWidget(size: 30, idPlayer: userData.id),
                     SizedBox(width: 10),
                     Flexible(
                       fit: FlexFit.loose,
@@ -58,7 +63,7 @@ class PlayerRow extends StatelessWidget {
                     ),
                     SizedBox(width: 10),
                     Text(
-                      "1234",
+                      score.toString(),
                       style: Theme.of(context).textTheme.headline5,
                     ),
                   ],

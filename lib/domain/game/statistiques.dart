@@ -22,4 +22,6 @@ abstract class Statistiques with _$Statistiques {
   Option<ValueFailure<dynamic>> get failureOption {
     return none();
   }
+
+  int get score => nbGame * 5;
 }

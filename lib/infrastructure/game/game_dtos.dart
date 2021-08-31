@@ -16,9 +16,9 @@ abstract class GameDTO implements _$GameDTO {
     required String idPlayerOne,
     required String idPlayerTwo,
     required String blackPlayer,
+    required String verification,
     @ServerTimestampConverter() required FieldValue timestampCreation,
-    required String
-        winner, //4 états : en cours / joueur1 / joueur2 / Match Null
+    required String winner,
   }) = _GameDTO;
 
   factory GameDTO.fromDomain(Game game) {
@@ -29,12 +29,11 @@ abstract class GameDTO implements _$GameDTO {
       idPlayerTwo: game.idPlayerTwo,
       timestampCreation: FieldValue.serverTimestamp(),
       winner: game.winner.getOrCrash().toShortString(),
+      verification: game.verification.getOrCrash().toShortString(),
     );
   }
 
   Game toDomain() {
-    print("c'estla mer noire");
-
     return Game(
       id: UniqueId.fromUniqueString(id!),
       blackPlayer: BlackPlayer.fromString(blackPlayer),
@@ -42,6 +41,7 @@ abstract class GameDTO implements _$GameDTO {
       idPlayerOne: idPlayerOne,
       idPlayerTwo: idPlayerTwo,
       winner: Winner.fromString(winner),
+      verification: VerificationWin.fromString(verification),
     );
   }
 

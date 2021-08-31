@@ -16,9 +16,11 @@ class AccountStatistic extends ConsumerWidget {
       data: (stats) {
         stats = stats ?? Statistiques.empty();
         final pourcentageSuccess =
-            (stats.nbGame != 0 ? stats.nbSuccess / stats.nbGame : 0) * 100;
+            ((stats.nbGame != 0 ? stats.nbSuccess / stats.nbGame : 0) * 100)
+                .toStringAsFixed(1);
         final pourcentageDefeat =
-            (stats.nbGame != 0 ? stats.nbDefeat / stats.nbGame : 0) * 100;
+            ((stats.nbGame != 0 ? stats.nbDefeat / stats.nbGame : 0) * 100)
+                .toStringAsFixed(1);
         return ListView(
           children: [
             SizedBox(height: 40),
