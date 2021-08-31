@@ -9,21 +9,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 final seletedIndexProvider = StateProvider<int>((ref) => 0);
 
-class AccountPage extends StatefulWidget {
+class AccountPage extends StatelessWidget {
   const AccountPage({Key? key}) : super(key: key);
-
-  @override
-  _AccountPageState createState() => _AccountPageState();
-}
-
-class _AccountPageState extends State<AccountPage> {
-  @override
-  void initState() {
-    super.initState();
-    //Rafraichit les données utilisateur lors de l'initialisation
-    WidgetsBinding.instance!
-        .addPostFrameCallback((_) => context.refresh(currentUserData));
-  }
 
   @override
   Widget build(BuildContext context) {

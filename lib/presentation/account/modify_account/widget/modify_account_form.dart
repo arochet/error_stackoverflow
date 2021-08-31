@@ -27,6 +27,7 @@ class ModifyAccountForm extends StatelessWidget {
                   }, (_) {
                     //Authentification réussie !
                     Future.delayed(Duration.zero, () async {
+                      await context.refresh(currentUserData);
                       Navigator.pushReplacementNamed(context, AppRouter.home,
                           arguments: NavigationArguments(1));
                     });
@@ -97,7 +98,23 @@ class _FormModifyAccountState extends State<FormModifyAccount> {
         child: ListView(padding: const EdgeInsets.all(18), children: [
           GestureDetector(
             onTap: () => PhotoProfile.showChoiceDialog(context),
-            child: AvatarWidget(size: 35),
+            child: Container(
+              child: Center(
+                child: Stack(
+                  children: [
+                    AvatarWidget(size: 35),
+                    Positioned(
+                      child: CircleAvatar(
+                        radius: 10,
+                        backgroundImage: AssetImage("assets/icon/modify.png"),
+                      ),
+                      top: 3,
+                      right: 3,
+                    )
+                  ],
+                ),
+              ),
+            ),
           ),
           const SizedBox(height: 8),
           //PRENOM

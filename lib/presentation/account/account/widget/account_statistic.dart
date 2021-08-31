@@ -26,7 +26,7 @@ class AccountStatistic extends ConsumerWidget {
             SizedBox(height: 40),
             Padding(
               padding: const EdgeInsets.all(8.0),
-              child: Text("${stats.nbGame * 5} points",
+              child: Text("${stats.score} points",
                   style: Theme.of(context).textTheme.headline2),
             ),
             SizedBox(height: 20),

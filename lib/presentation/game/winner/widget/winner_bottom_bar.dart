@@ -92,6 +92,7 @@ class WinnerBottomBar extends ConsumerWidget {
               SizedBox(height: 15),
               ElevatedButton(
                 onPressed: () {
+                  context.refresh(statistiquesCurrentUser);
                   Navigator.pushReplacementNamed(
                       context, AppRouter.gameScanQrCode);
                 },
@@ -101,6 +102,7 @@ class WinnerBottomBar extends ConsumerWidget {
               SizedBox(height: 5),
               ElevatedButton(
                 onPressed: () {
+                  context.refresh(statistiquesCurrentUser);
                   Navigator.pushReplacementNamed(context, AppRouter.home);
                 },
                 child: Text("Page d'accueil"),

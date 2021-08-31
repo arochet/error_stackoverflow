@@ -20,7 +20,7 @@ class BarOfSuccess extends ConsumerWidget {
             stat.nbGame != 0 ? (stat.nbSuccess / stat.nbGame).toDouble() : 1;
         return _buildLinearBar(ratio, false);
       },
-      loading: () => _buildLinearBar(0, false),
+      loading: () => _buildLinearBar(0.5, false),
       error: (err, stack) => Text(err.toString()),
     );
   }

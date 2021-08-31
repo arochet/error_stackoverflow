@@ -22,7 +22,10 @@ class AvatarWidget extends ConsumerWidget {
             backgroundImage: img.image,
           );
       },
-      loading: () => CircularProgressIndicator(),
+      loading: () => CircleAvatar(
+        radius: size,
+        backgroundImage: AssetImage("assets/icon/noavatar.png"),
+      ),
       error: (e, s) => CircleAvatar(radius: size),
     );
   }
@@ -51,7 +54,10 @@ class AvatarPlayerWidget extends ConsumerWidget {
             backgroundImage: img.image,
           );
       },
-      loading: () => CircularProgressIndicator(),
+      loading: () => CircleAvatar(
+        radius: size,
+        backgroundImage: AssetImage("assets/icon/noavatar.png"),
+      ),
       error: (e, s) => CircleAvatar(radius: size),
     );
   }
