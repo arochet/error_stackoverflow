@@ -34,6 +34,8 @@ class WinnerAppbar extends StatelessWidget {
         children: [
           SizedBox(height: 40),
           Text("Qui à gagné ?", style: Theme.of(context).textTheme.headline3),
+          SizedBox(height: 10),
+          Text("Sélectionnez le joueur", style: txtStyleSubtitleGrey),
           SizedBox(height: 20),
           Consumer(builder: (context, watch, _) {
             final game = watch(currentGameProvider);
@@ -96,7 +98,7 @@ class WinnerAppbar extends StatelessWidget {
                       if (game == null) return "";
                       switch (game.verification.getOrCrash()) {
                         case VerificationWinState.none:
-                          return "Partie non vérifiée";
+                          return "";
                         case VerificationWinState.playerOneOK:
                           return "En attente de vérification des deux joueurs";
                         case VerificationWinState.playerTwoOK:

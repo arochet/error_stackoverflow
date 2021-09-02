@@ -24,6 +24,9 @@ class FormConnexionProvide extends StatelessWidget {
                   }, (_) {
                     //Authentification réussie !
                     Future.delayed(Duration.zero, () async {
+                      context.refresh(currentUser);
+                      context.refresh(currentPhotoProfile);
+                      
                       context
                           .read(authNotifierProvider.notifier)
                           .authCheckRequested();
@@ -47,7 +50,6 @@ class FormConnexion extends ConsumerWidget {
     return Form(
       autovalidateMode: AutovalidateMode.always,
       child: Column(children: [
-        TextFormField(),
         const SizedBox(height: 8),
         TextFormField(
           decoration: const InputDecoration(
