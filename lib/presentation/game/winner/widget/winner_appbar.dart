@@ -96,7 +96,7 @@ class WinnerAppbar extends StatelessWidget {
                       if (game == null) return "";
                       switch (game.verification.getOrCrash()) {
                         case VerificationWinState.none:
-                          return "Partie non vérifié";
+                          return "Partie non vérifiée";
                         case VerificationWinState.playerOneOK:
                           return "En attente de vérification des deux joueurs";
                         case VerificationWinState.playerTwoOK:

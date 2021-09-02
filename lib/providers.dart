@@ -11,7 +11,6 @@ import 'package:base_de_projet/domain/auth/user_data.dart';
 import 'package:base_de_projet/domain/core/value_objects.dart';
 import 'package:base_de_projet/domain/game/game.dart';
 import 'package:base_de_projet/domain/game/statistiques.dart';
-import 'package:base_de_projet/domain/game/value_objects.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 

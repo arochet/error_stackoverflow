@@ -232,8 +232,13 @@ class FirebaseGameFacade implements GameRepository {
               if (!isFirstPlayer) {
                 if (win == winStateInGame)
                   laVerif = VerificationWinState.GameVerified;
-                else
+                else {
                   doc.update({'winner': win.toShortString()});
+                  doc.update({
+                    'verification':
+                        VerificationWinState.playerTwoOK.toShortString()
+                  });
+                }
               } else
                 doc.update({'winner': win.toShortString()});
               break;
@@ -241,8 +246,13 @@ class FirebaseGameFacade implements GameRepository {
               if (isFirstPlayer) {
                 if (win == winStateInGame)
                   laVerif = VerificationWinState.GameVerified;
-                else
+                else {
                   doc.update({'winner': win.toShortString()});
+                  doc.update({
+                    'verification':
+                        VerificationWinState.playerOneOK.toShortString()
+                  });
+                }
               } else
                 doc.update({'winner': win.toShortString()});
               break;

@@ -47,6 +47,7 @@ class FormConnexion extends ConsumerWidget {
     return Form(
       autovalidateMode: AutovalidateMode.always,
       child: Column(children: [
+        TextFormField(),
         const SizedBox(height: 8),
         TextFormField(
           decoration: const InputDecoration(

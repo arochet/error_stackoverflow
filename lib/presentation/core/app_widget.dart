@@ -3,10 +3,10 @@ import 'package:base_de_projet/presentation/account/modify_account/modify_accoun
 import 'package:base_de_projet/presentation/account/new_password/new_password_page.dart';
 import 'package:base_de_projet/presentation/account/reathenticate/reauthenticate_page.dart';
 import 'package:base_de_projet/presentation/auth/auth_check_email/auth_check_email_page.dart';
-import 'package:base_de_projet/presentation/auth/auth_connexion/auth_connexion.dart';
 import 'package:base_de_projet/presentation/auth/auth_init/auth_init.dart';
 import 'package:base_de_projet/presentation/auth/auth_register/auth_register.dart';
 import 'package:base_de_projet/presentation/auth/auth_reset_password.dart/auth_reset_password.dart';
+import 'package:base_de_projet/presentation/auth/test_page.dart';
 import 'package:base_de_projet/presentation/core/theme.dart';
 import 'package:base_de_projet/presentation/game/choose_team/chosse_team_page.dart';
 import 'package:base_de_projet/presentation/game/current_game/current_game_page.dart';
@@ -56,7 +56,7 @@ class AppWidget extends StatelessWidget {
       routes: {
         AppRouter.defaultPath: (context) => const SplashPage(),
         AppRouter.authInit: (context) => const AuthInitPage(),
-        AppRouter.authConnexion: (context) => const AuthConnexionPage(),
+        AppRouter.authConnexion: (context) => const TestPage(),
         AppRouter.authRegister: (context) => const AuthRegisterPage(),
         AppRouter.authCheckEmail: (context) => const AuthCheckEmailPage(),
         AppRouter.authResetPassword: (context) => const AuthResetPasswordPage(),

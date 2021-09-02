@@ -3,7 +3,6 @@ import 'package:base_de_projet/presentation/account/account/widget/account_info.
 import 'package:base_de_projet/presentation/account/account/widget/account_statistic.dart';
 import 'package:base_de_projet/presentation/components/page_with_appbar.dart';
 import 'package:base_de_projet/presentation/core/theme.dart';
-import 'package:base_de_projet/providers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 

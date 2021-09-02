@@ -303,7 +303,7 @@ class FirebaseAuthFacade implements AuthRepository {
           await userDoc.doc(email).delete();
           user.updatePassword(crypt(newPassword.getOrCrash()));
           return right(unit);
-        } on FirebaseAuthException catch (e) {
+        } on FirebaseAuthException {
           return (left(const NewPasswordFailure.serverError()));
         }
       });
