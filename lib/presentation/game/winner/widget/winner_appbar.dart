@@ -33,8 +33,8 @@ class WinnerAppbar extends StatelessWidget {
       child: Column(
         children: [
           SizedBox(height: 40),
-          Text("Qui à gagné ?", style: Theme.of(context).textTheme.headline3),
-          SizedBox(height: 10),
+          Text("Qui a gagné ?", style: Theme.of(context).textTheme.headline3),
+          SizedBox(height: 5),
           Text("Sélectionnez le joueur", style: txtStyleSubtitleGrey),
           SizedBox(height: 20),
           Consumer(builder: (context, watch, _) {

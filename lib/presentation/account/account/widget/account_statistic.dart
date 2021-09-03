@@ -1,5 +1,6 @@
 import 'package:base_de_projet/domain/game/statistiques.dart';
 import 'package:base_de_projet/presentation/components/bar_of_success.dart';
+import 'package:base_de_projet/presentation/components/some_widgets.dart';
 import 'package:base_de_projet/providers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -26,7 +27,7 @@ class AccountStatistic extends ConsumerWidget {
             SizedBox(height: 40),
             Padding(
               padding: const EdgeInsets.all(8.0),
-              child: Text("${stats.score} points",
+              child: Text("${stats.score} ${pluriel(stats.score, 'point')}",
                   style: Theme.of(context).textTheme.headline2),
             ),
             SizedBox(height: 20),
@@ -38,7 +39,7 @@ class AccountStatistic extends ConsumerWidget {
                     children: [
                       //NOMBRE DE PARTIES
                       Text(
-                        "${stats.nbGame} Parties",
+                        "${stats.nbGame} ${pluriel(stats.nbGame, 'Partie')}",
                         style: Theme.of(context).textTheme.headline3,
                       ),
                       SizedBox(height: 20),
@@ -46,12 +47,14 @@ class AccountStatistic extends ConsumerWidget {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Text("${stats.nbSuccess} victoires",
+                          Text(
+                              "${stats.nbSuccess} ${pluriel(stats.nbSuccess, 'victoire')}",
                               style: Theme.of(context)
                                   .textTheme
                                   .headline4!
                                   .copyWith(color: Colors.green)),
-                          Text("${stats.nbDefeat} défaites",
+                          Text(
+                              "${stats.nbDefeat} ${pluriel(stats.nbDefeat, 'défaite')}",
                               style: Theme.of(context)
                                   .textTheme
                                   .headline4!

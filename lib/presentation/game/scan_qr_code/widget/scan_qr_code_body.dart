@@ -7,6 +7,7 @@ import 'package:base_de_projet/providers.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:injectable/injectable.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
 
 final qrCodeOkay = StateProvider((ref) => false);
@@ -19,39 +20,36 @@ class ScanQrCodeBody extends StatelessWidget {
     return Stack(
       children: [
         ProviderListener(
-          provider: gameNotifierProvider,
-          onChange: (context, MyCurrentGameData myCurrentGameData) {
-            myCurrentGameData.idGameFailureOrSuccessOption.fold(
-                () {},
-                (either) => either.fold((failure) {
-                      context.read(qrCodeOkay).state = false;
-                      //Message d'erreur
-                      Flushbar(
-                        duration: const Duration(seconds: 3),
-                        icon: const Icon(Icons.warning),
-                        messageColor: Colors.red,
-                        message: failure.map(
-                          noInternet: (_) => 'Pas d\'internet',
-                          serverError: (_) => 'Server Error',
-                          userAlreadyCreatedGame: (_) =>
-                              'Vous avez déjà créé une partie',
-                        ),
-                      ).show(context);
-                    }, (_id) {
-                      Future.delayed(Duration.zero, () async {
-                        context.read(qrCodeOkay).state = true;
-                        context.read(uniqueIdCurrentGameProvider).state = _id;
-                        Navigator.pushNamed(context, AppRouter.gameWaitPlayer);
-                      });
-                    }));
-          },
-          child: QRCode(),
-        ),
-        /* ElevatedButton.icon(
-            onPressed: () =>
-                context.read(gameNotifierProvider.notifier).newGame("Table-10"),
-            icon: Icon(Icons.qr_code),
-            label: Text("Go")), */
+            provider: gameNotifierProvider,
+            onChange: (context, MyCurrentGameData myCurrentGameData) {
+              myCurrentGameData.idGameFailureOrSuccessOption.fold(
+                  () {},
+                  (either) => either.fold((failure) {
+                        context.read(qrCodeOkay).state = false;
+                        //Message d'erreur
+                        Flushbar(
+                          duration: const Duration(seconds: 3),
+                          icon: const Icon(Icons.warning),
+                          messageColor: Colors.red,
+                          message: failure.map(
+                            noInternet: (_) => 'Pas d\'internet',
+                            serverError: (_) => 'Server Error',
+                            userAlreadyCreatedGame: (_) =>
+                                'Vous avez déjà créé une partie',
+                          ),
+                        ).show(context);
+                      }, (_id) {
+                        Future.delayed(Duration.zero, () async {
+                          context.read(qrCodeOkay).state = true;
+                          context.read(uniqueIdCurrentGameProvider).state = _id;
+                          Navigator.pushNamed(
+                              context, AppRouter.gameWaitPlayer);
+                        });
+                      }));
+            },
+            child: Container() //QRCode(),
+            ),
+        ButtonTest(),
         Center(
             heightFactor: 7,
             child: Text(
@@ -60,6 +58,19 @@ class ScanQrCodeBody extends StatelessWidget {
             )),
       ],
     );
+  }
+}
+
+class ButtonTest extends StatelessWidget {
+  const ButtonTest({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return ElevatedButton.icon(
+        onPressed: () =>
+            context.read(gameNotifierProvider.notifier).newGame("Table-10"),
+        icon: Icon(Icons.qr_code),
+        label: Text("Go"));
   }
 }
 

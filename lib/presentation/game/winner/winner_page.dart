@@ -24,16 +24,50 @@ class WinnerPage extends StatelessWidget {
             Expanded(child: Container()),
             ElevatedButton(
               onPressed: () async {
-                final idGame = context.read(uniqueIdCurrentGameProvider);
-                if (idGame.state != null)
-                  await context
-                      .read(gameRepositoryProvider)
-                      .cancelGame(idGame.state!);
-                Navigator.pushReplacementNamed(context, AppRouter.home);
+                //MODAL DE CONFIRMATION
+                Widget cancelButton = TextButton(
+                  child: Text("Annuler",
+                      style: Theme.of(context).textTheme.button),
+                  onPressed: () => Navigator.of(context).pop(),
+                );
+                Widget continueButton = TextButton(
+                  child: Text("Supprimer la partie",
+                      style: Theme.of(context)
+                          .textTheme
+                          .button
+                          ?.copyWith(color: Colors.red)),
+                  onPressed: () async {
+                    final idGame = context.read(uniqueIdCurrentGameProvider);
+                    if (idGame.state != null)
+                      await context
+                          .read(gameRepositoryProvider)
+                          .cancelGame(idGame.state!);
+                    Navigator.pushReplacementNamed(context, AppRouter.home);
+                  },
+                );
+
+                // set up the AlertDialog
+                AlertDialog alert = AlertDialog(
+                  title: Text("Attention !"),
+                  content: Text("Etes-vous sur de vouloir annuler la partie ?"),
+                  actions: [
+                    cancelButton,
+                    continueButton,
+                  ],
+                );
+
+                // show the dialog
+                showDialog(
+                  context: context,
+                  builder: (BuildContext context) {
+                    return alert;
+                  },
+                );
               },
               child: Text("Annuler la partie"),
               style: buttonPrimaryNormal,
             ),
+            SizedBox(height: 50),
           ],
         ),
         customBottomBar: WinnerBottomBar(),

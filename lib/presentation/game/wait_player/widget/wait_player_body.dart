@@ -82,71 +82,75 @@ class WaitPlayerBodyWidget extends ConsumerWidget {
           }
 
           //Waiting for other player
-          return Center(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Text(
+          return Column(
+            //mainAxisAlignment: MainAxisAlignment.center,
+            //crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Expanded(flex: 2, child: Container()),
+              Padding(
+                padding: const EdgeInsets.all(18.0),
+                child: Text(
                   "En l'attente de l'autre joueur...",
-                  style: Theme.of(context).textTheme.headline5,
+                  style: Theme.of(context).textTheme.headline3,
+                  textAlign: TextAlign.center,
                 ),
-                SizedBox(height: 30),
-                Container(
-                  color: Colors.black12,
-                  width: 200,
-                  height: 200,
-                  child: Image(image: AssetImage("assets/images/plateau.png")),
-                ),
-                SizedBox(height: 20),
-                Consumer(builder: (context, watch, _) {
-                  final userData = watch(currentUserData);
-                  final streamS = watch(statistiquesCurrentUser);
-                  if (userData.data != null && userData.data!.value != null) {
-                    //Value okay
-                    return Column(
-                      children: [
-                        Text(
-                          userData.data!.value!.userName.getOrCrash(),
-                          style: Theme.of(context).textTheme.headline3,
-                        ),
-                        Text(
-                            streamS.when(
-                              data: (stats) {
-                                stats = stats ?? Statistiques.empty();
-                                return stats.score.toString();
-                              },
-                              loading: () => '',
-                              error: (err, stack) => err.toString(),
-                            ),
-                            style: Theme.of(context).textTheme.headline5),
-                      ],
-                    );
-                  } else {
-                    //Value Null !
-                    return Column(
-                      children: [
-                        Text("", style: Theme.of(context).textTheme.headline3),
-                        Text("", style: Theme.of(context).textTheme.headline5),
-                      ],
-                    );
-                  }
-                }),
-                SizedBox(height: 10),
-                ElevatedButton(
-                  onPressed: () async {
-                    final idGame = context.read(uniqueIdCurrentGameProvider);
-                    if (idGame.state != null)
-                      await context
-                          .read(gameRepositoryProvider)
-                          .cancelGame(idGame.state!);
-                    Navigator.pushReplacementNamed(context, AppRouter.home);
-                  },
-                  child: Text("Quitter"),
-                  style: buttonPrimaryNormal,
-                )
-              ],
-            ),
+              ),
+              SizedBox(height: 10),
+              Container(
+                color: Colors.black12,
+                width: 200,
+                height: 200,
+                child: Image(image: AssetImage("assets/images/plateau.png")),
+              ),
+              SizedBox(height: 20),
+              Consumer(builder: (context, watch, _) {
+                final userData = watch(currentUserData);
+                final streamS = watch(statistiquesCurrentUser);
+                if (userData.data != null && userData.data!.value != null) {
+                  //Value okay
+                  return Column(
+                    children: [
+                      Text(
+                        userData.data!.value!.userName.getOrCrash(),
+                        style: Theme.of(context).textTheme.headline3,
+                      ),
+                      Text(
+                          streamS.when(
+                            data: (stats) {
+                              stats = stats ?? Statistiques.empty();
+                              return stats.score.toString();
+                            },
+                            loading: () => '',
+                            error: (err, stack) => err.toString(),
+                          ),
+                          style: Theme.of(context).textTheme.headline5),
+                    ],
+                  );
+                } else {
+                  //Value Null !
+                  return Column(
+                    children: [
+                      Text("", style: Theme.of(context).textTheme.headline3),
+                      Text("", style: Theme.of(context).textTheme.headline5),
+                    ],
+                  );
+                }
+              }),
+              SizedBox(height: 60),
+              ElevatedButton(
+                onPressed: () async {
+                  final idGame = context.read(uniqueIdCurrentGameProvider);
+                  if (idGame.state != null)
+                    await context
+                        .read(gameRepositoryProvider)
+                        .cancelGame(idGame.state!);
+                  Navigator.pushReplacementNamed(context, AppRouter.home);
+                },
+                child: Text("Quitter"),
+                style: buttonPrimaryNormal,
+              ),
+              Expanded(flex: 3, child: Container()),
+            ],
           );
         },
         loading: () => CircularProgressIndicator(),

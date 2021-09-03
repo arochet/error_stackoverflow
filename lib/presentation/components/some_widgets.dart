@@ -10,3 +10,7 @@ final defaultAppBar = AppBar(
     size: 65,
   ),
 );
+
+String pluriel(int num, String str) {
+  return num > 1 ? "${str}s" : str;
+}

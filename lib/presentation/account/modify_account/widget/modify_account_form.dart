@@ -235,7 +235,7 @@ class _FormModifyAccountState extends State<FormModifyAccount> {
                     .modifyPressed();
               },
               style: buttonPrimaryNormal,
-              child: const Text("Modifier"),
+              child: const Text("Enregistrer"),
             ),
           ),
           const SizedBox(height: 12),
