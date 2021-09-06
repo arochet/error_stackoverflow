@@ -73,12 +73,13 @@ flutter:
   # To add assets to your application, add an assets section, like this:
   assets:
     - assets/chess.png
-    - assets/images/chess1.jpeg
-    - assets/images/chess2.jpeg
-    - assets/images/chess3.jpeg
-    - assets/images/chess4.jpeg
-    - assets/images/chess5.jpeg
     - assets/images/plateau.png
+    - assets/images/damier.png
+    - assets/images/cours.png
+    - assets/images/jouer.jpg
+    - assets/images/reserver.jpg
+    - assets/images/simultanee.png
+    - assets/images/tournoi.png
     - assets/icon/noavatar.png
     - assets/icon/logo-blitz.png
     - assets/icon/modify.png
